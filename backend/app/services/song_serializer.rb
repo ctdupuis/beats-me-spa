@@ -8,9 +8,11 @@ class SongSerializer
         options = {
             include: {
                 album: {
-                    only: [:name, :artist_name]
+                    only: [:name]
                 },
-                artist: {only: [:name]}
+                artist: {
+                    only: [:name]
+                }
             },
             except: [:created_at, :updated_at]
         }
