@@ -12,8 +12,15 @@
     </header>
     <form id='new-album' action="/albums/new" method="POST">
         <label for='album[name]'>Album Name</label>
-        <input type='text' name='album[name]' required>
-        
+        <input type='text' name='album[name]' required><br>
+        <label for='album[artist]'>Artist</label>
+        <input type='text' name='album[artist]'>
+        <br>
+        <label>Tracklist</label>
+        <br>
+        <label for='album[songs][][title]'>Track 1</label>
+        <input type='text' name='album[songs][][title]'>
+        <br>
         <input type='submit'>
     </form>
     

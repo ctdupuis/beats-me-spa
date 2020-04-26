@@ -7,6 +7,7 @@ class AlbumsController < ApplicationController
 
     def create
         album = Album.create(album_params)
+            render json: AlbumSerializer.new(album).to_serialized_json
     end
 
     def index
