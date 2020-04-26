@@ -2,13 +2,31 @@ const BASE_PATH = 'http://localhost:3000'
 const ALBUMS_PATH = `${BASE_PATH}/albums`
 const GENRES_PATH = `${BASE_PATH}/genres`
 
-document.querySelector('form#new-album').addEventListener("submit", function(e){
+const albForm = document.querySelector('form#new-album')
+const singleBtn = document.querySelector('button#single')
+const epBtn = document.querySelector('button#EP')
+const lpBtn = document.querySelector('button#LP')
+
+singleBtn.addEventListener("click", function(e){
+    albForm.style.display = ""
+    singleBtn.style.display = "none"
+})
+epBtn.addEventListener("click", function(e){
+    albForm.style.display = ""
+    epBtn.style.display = "none"
+})
+lpBtn.addEventListener("click", function(e){
+    albForm.style.display = ""
+    lpBtn.style.display = "none"
+})
+albForm.addEventListener("submit", function(e){
     // debugger
     let albumdata = {
         album: { 
             name: e.target.children["album-name"].value,
             artist_name: e.target.children["artist-name"].value,
-            genre: e.target.children['genre'].value,
+            genre_id: e.target.children['genre_id'].value,
+            img_url: e.target.children['album-img'].value,
             songs_attributes: [
                 {
                     title: e.target.children["track1-title"].value,
@@ -27,7 +45,7 @@ document.querySelector('form#new-album').addEventListener("submit", function(e){
     }
     fetch(ALBUMS_PATH, object)
     .then(res => res.json())
-    .then(json => console.log(json))
+    .then(json => renderAlbum(json))
     e.preventDefault();
 })
 
@@ -48,8 +66,8 @@ function renderAlbum(album){
     let html = `
     <div class="img-container">
     <span class="alb-name">${album.name}</span>
-
         <img src="${album.img_url}">
+    <span class="alb-artist">${album.artist.name}</span>
     </div>
     `
     divCard.innerHTML += html
@@ -57,7 +75,7 @@ function renderAlbum(album){
 }
 
 function renderGenre(genre){
-    let genSelect = document.querySelector('select#genre')
+    let genSelect = document.querySelector('select#genre_id')
     let html = `
     <option value="${genre.id}">${genre.name}</option>
     `

@@ -10,27 +10,36 @@
     <header class="header">
         <div class="title">BeatsME</div>
     </header>
-    <h3>Submit a New Album</h3>
-    <form id='new-album' action="/albums" method="POST">
+    <button class="button" id="single">Submit a New Single</button><button>?</button>
+    <br>
+    <button class="button" id="EP">Submit an EP</button><button>?</button>
+    <br>
+    <button class="button" id="LP">Submit a full LP</button><button>?</button>
+    <br>
+    <form id='new-album' action="/albums" method="POST" style="display: none;">
         <label for='album-name'>Album Name</label>
-        <input type='text' name='album-name' value="Circles"><br>
+        <input type='text' name='album-name' value="WELCOME HOME"><br>
         <label for='artist-name'>Artist</label>
-        <input type='text' name='artist-name' value="Mac Miller">
+        <input type='text' name='artist-name' value="Aries">
         <br>
         <label for='album-genre'>Genre</label>
         <!-- <input type='text' name='album-genre' value="Hip Hop"> -->
         <br>
-        <select id='genre'>
+        <select id='genre_id'>
             <!-- <option value="Hip Hop">Hip Hop</option>
             <option value="Rap">Rap</option>
             <option value="Pop">Pop</option> -->
         </select>
+        <br>
+        <label for='album-img'>Album Cover</label>
+        <input type="text" name='album-img' value="data:image/jpeg;base64,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">
+        <br><br>
         <label>Tracklist</label>
         <br>
         <label for='track1-title'>Track 1 Title</label>
-        <input type='text' name='track1-title' value="Circles">
+        <input type='text' name='track1-title' value="BAD NEWS">
         <label for='track1-runtime'>Track 1 Runtime</label>
-        <input type='text' name='track1-runtime' value="4:20">
+        <input type='text' name='track1-runtime' value="2:44">
         <br>
         <input type='submit'>
     </form>
