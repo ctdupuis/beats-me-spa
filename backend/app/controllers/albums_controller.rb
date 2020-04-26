@@ -2,15 +2,16 @@ class AlbumsController < ApplicationController
     before_action :set_album, except: [:new, :create, :index]
 
     def new 
-
+        album = Album.new
     end
 
     def create
-
+        album = Album.create(album_params)
     end
 
     def index
         albums = Album.all
+        render json: AlbumSerializer.new(albums).to_serialized_json
     end
 
     private
