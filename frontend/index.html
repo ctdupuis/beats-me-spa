@@ -4,22 +4,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>BeatsME</title>
-    <script src="./src/index.js"></script>
 </head>
 <body>
+    <header class="header">
+        <div class="title">BeatsME</div>
+    </header>
     <form id='new-album' action="/albums/new" method="POST">
         <label for='album[name]'>Album Name</label>
         <input type='text' name='album[name]' required>
-
+        
         <input type='submit'>
     </form>
-
+    
     <div class="wrapper">
         <div class="flex-container">
-            
+            <!-- This is where album covers will go -->
         </div>
     </div>
     
     
 </body>
+<script src="./src/index.js"></script>
 </html>
