@@ -1,5 +1,6 @@
 const BASE_PATH = 'http://localhost:3000'
 const ALBUMS_PATH = `${BASE_PATH}/albums`
+const GENRES_PATH = `${BASE_PATH}/genres`
 
 document.querySelector('form#new-album').addEventListener("submit", function(e){
     // debugger
@@ -34,6 +35,10 @@ fetch(ALBUMS_PATH)
 .then(res => res.json())
 .then(json => json.forEach(album => renderAlbum(album)))
 
+fetch (GENRES_PATH)
+.then(res => res.json())
+.then(json => json.forEach(genre => renderGenre(genre)))
+
 function renderAlbum(album){
     // debugger
     let flexContainer = document.querySelector('div.flex-container')
@@ -49,4 +54,12 @@ function renderAlbum(album){
     `
     divCard.innerHTML += html
     flexContainer.appendChild(divCard)
+}
+
+function renderGenre(genre){
+    let genSelect = document.querySelector('select#genre')
+    let html = `
+    <option value="${genre.id}">${genre.name}</option>
+    `
+    genSelect.innerHTML += html
 }

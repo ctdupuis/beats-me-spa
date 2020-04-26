@@ -20,8 +20,5 @@ class Album < ApplicationRecord
         end
     end
 
-    def genre=(genre)
-        self.genre = Genre.find_by_name(genre)
-    end
 
 end

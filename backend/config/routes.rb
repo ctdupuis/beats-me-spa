@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   end
 
   get '/songs', to: 'songs#index'
+  get '/genres', to: 'genres#index'
   resources :artists
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
