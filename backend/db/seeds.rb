@@ -85,6 +85,24 @@ up_tracks = {
     :t12 => {:title => "Till the End", :runtime => "5:12"}
 }
 
+swimming_img = "https://i.pinimg.com/originals/63/94/31/63943167a3e0fe622a4a11466ebeab8a.jpg"
+swimming_tracks = {
+    :t1 => {:title => "Come Back to Earth", :runtime => "2:41"},
+    :t2 => {:title => "Hurt Feelings", :runtime => "4:05"},
+    :t3 => {:title => "What's the Use?", :runtime => "4:48"},
+    :t4 => {:title => "Perfecto", :runtime => "3:35"},
+    :t5 => {:title => "Self Care", :runtime => "5:45"},
+    :t6 => {:title => "Wings", :runtime => "4:10"},
+    :t7 => {:title => "Ladders", :runtime => "4:47"},
+    :t8 => {:title => "Small Worlds", :runtime => "4:31"},
+    :t9 => {:title => "Conversation Pt.1", :runtime => "3:30"},
+    :t10 => {:title => "Dunno", :runtime => "3:57"},
+    :t11 => {:title => "Jet Fuel", :runtime => "5:45"},
+    :t12 => {:title => "2009", :runtime => "5:47"},
+    :t13 => {:title => "So It Goes", :runtime => "5:12"}
+}
+
 make_seeds(up_tracks, "Under Pressure", "Logic", "Rap", up_img)
+make_seeds(swimming_tracks, "Swimming", "Mac Miller", "Hip Hop", swimming_img)
 
     
