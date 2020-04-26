@@ -6,8 +6,9 @@ class AlbumsController < ApplicationController
     end
 
     def create
-        album = Album.create(album_params)
-            render json: AlbumSerializer.new(album).to_serialized_json
+        binding.pry
+        album = Album.new(album_params)
+        render json: AlbumSerializer.new(album).to_serialized_json
     end
 
     def index
@@ -18,7 +19,7 @@ class AlbumsController < ApplicationController
     private
 
     def album_params
-        params.require(:album).permit(:name, :artist_name, :img_url, :genre_id, songs_attributes: [:title, :runtime, :artist_name])
+        params.require(:album).permit(:name, :artist_name, :img_url, :genre, songs_attributes: [:title, :runtime, :artist_name])
     end
 
     def set_album

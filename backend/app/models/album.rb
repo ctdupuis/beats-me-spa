@@ -19,4 +19,9 @@ class Album < ApplicationRecord
             self.songs << song unless song.title.blank?
         end
     end
+
+    def genre=(genre)
+        self.genre = Genre.find_by_name(genre)
+    end
+
 end

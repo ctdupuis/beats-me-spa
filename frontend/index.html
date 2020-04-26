@@ -10,16 +10,25 @@
     <header class="header">
         <div class="title">BeatsME</div>
     </header>
-    <form id='new-album' action="/albums/new" method="POST">
-        <label for='album[name]'>Album Name</label>
-        <input type='text' name='album[name]' required><br>
-        <label for='album[artist]'>Artist</label>
-        <input type='text' name='album[artist]'>
+    <h3>Submit a New Album</h3>
+    <form id='new-album' action="/albums" method="POST">
+        <label for='album-name'>Album Name</label>
+        <input type='text' name='album-name' value="Circles"><br>
+        <label for='artist-name'>Artist</label>
+        <input type='text' name='artist-name' value="Mac Miller">
         <br>
+        <label for='genre'>Genre</label>
+        <select id='genre'>
+            <option value="Hip Hop">Hip Hop</option>
+            <option value="Rap">Rap</option>
+            <option value="Pop">Pop</option>
+        </select>
         <label>Tracklist</label>
         <br>
-        <label for='album[songs][][title]'>Track 1</label>
-        <input type='text' name='album[songs][][title]'>
+        <label for='track1-title'>Track 1 Title</label>
+        <input type='text' name='track1-title' value="Circles">
+        <label for='track1-runtime'>Track 1 Runtime</label>
+        <input type='text' name='track1-runtime' value="4:20">
         <br>
         <input type='submit'>
     </form>
