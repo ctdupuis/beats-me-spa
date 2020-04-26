@@ -59,7 +59,7 @@ end
 def make_seeds(track_hash, album, artist, genre, img)
     genre = Genre.find_or_create_by(name: genre)
     artist = Artist.find_or_create_by(name: artist)
-    alb = Album.new(name: album, artist_name: artist.name, genre_id: genre.id, img_url: img)
+    alb = Album.new(name: album, artist_id: artist.id, genre_id: genre.id, img_url: img)
     track_hash.each do |k, v|
         song = Song.new(v)
         song.artist_id = artist.id 
