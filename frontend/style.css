@@ -1,34 +1,43 @@
 body {
+    background-color: grey;
+}
+
+.header {
+    display: flex;
     background-color: rgb(41, 41, 41);
+    width: 100%;
+    border-left: 14px;
+    padding-left: 2px;
+    height: auto;
 }
 
 .wrapper {
     background-color: rgb(41, 41, 41);
+    margin: 10px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.album-card {
+    background-color: purple;
+    border: 25px;
+    margin: 25px;
 }
 
 .flex-container {
     display: flex;
 }
 
-/* .img-container {
-    text-align: right;
-    height: auto;
-    width: 500px;
+.img-container {
+    height: 100px;
+    width: 100px;
     padding: 20px;
-    float: right;
-    border-radius: 4px;
-    margin-left: auto;
-    padding: 30px;
-} */
-
-/* .img-container {
-    height: auto;
-    width: auto;
-    padding: 20px;
+    border: 20px;
 }
+
 .img-container  img {
-    height: 75%;
-    width: 75%;
+    height: auto;
+    width: 100%;
     border: 5px;
     border-radius: 5px;
-} */
+}
