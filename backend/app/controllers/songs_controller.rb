@@ -10,6 +10,7 @@ class SongsController < ApplicationController
     def create
         album = Album.find_or_create_by(name: song_params[:album_name])
         song = album.songs.build(song_params)
+        binding.pry
     end
 
     def add
@@ -50,7 +51,7 @@ class SongsController < ApplicationController
     private
 
     def song_params
-        params.require(:song).permit(:title, :runtime, :artist_name, :album_name, :album_id)
+        params.require(:song).permit(:title, :runtime, :artist_name, :album_name, :album_id, :genre_id)
     end
 
     def set_song

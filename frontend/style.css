@@ -26,6 +26,7 @@ body {
 
 .flex-container {
     display: flex;
+    overflow: auto;
 }
 
 .img-container {
@@ -60,6 +61,22 @@ body {
     display: flex;
 }
 
-div.songs-container {
+div.tracklist-container {
     overflow: scroll;
+    height: 50px;
+    width: auto;
+}
+
+div.song-container {
+    background-color: grey;
+}
+
+div.song-container div.song-title {
+    display: flex;
+    border: 1px solid black;
+    overflow: auto;
+}
+
+div.song-container div.song-title div {
+    margin-left: auto;
 }

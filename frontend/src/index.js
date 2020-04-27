@@ -3,9 +3,9 @@ const ALBUMS_PATH = `${BASE_PATH}/albums`
 const GENRES_PATH = `${BASE_PATH}/genres`
 
 const albForm = document.querySelector('form#new-album')
-const singleBtn = document.querySelector('button#single')
-const epBtn = document.querySelector('button#EP')
-const lpBtn = document.querySelector('button#LP')
+// const singleBtn = document.querySelector('button#single')
+// const epBtn = document.querySelector('button#EP')
+// const lpBtn = document.querySelector('button#LP')
 const buttons = document.querySelectorAll('button.button')
 
 function generateFields(num, parent) {
@@ -80,7 +80,10 @@ albForm.addEventListener("submit", function(e){
     }
     fetch(ALBUMS_PATH, object)
     .then(res => res.json())
-    .then(json => renderAlbum(json))
+    .then(json => {
+        renderAlbum(json)
+        renderSongs(json)
+    })
     e.preventDefault();
 })
 
@@ -89,7 +92,7 @@ fetch(ALBUMS_PATH)
 .then(json => json.forEach(album => {
     renderAlbum(album)
     renderSongs(album)
-    debugger
+    // debugger
 }))
 
 fetch (GENRES_PATH)
@@ -115,14 +118,16 @@ function renderAlbum(album){
 
 function renderSongs(album){
     let songsDiv = document.createElement('div')
-    songsDiv.setAttribute('class', 'songs-container')
+    songsDiv.setAttribute('class', 'tracklist-container')
     let divCard = document.querySelector(`[data-album-id='${album.id}']`)
     divCard.appendChild(songsDiv)
     for (let i = 0; i < album.songs.length; i++){
-        debugger
         songsDiv.innerHTML += `
-        <li>${i + 1}. ${album.songs[i].title} | ${album.songs[i].runtime}</li>
+        <div class="song-container">
+        <div class="song-title">${i + 1}.  ${album.songs[i].title} <div> ${album.songs[i].runtime}</div></div>
+        </div>
         `
+        // debugger
     }
 }
 
