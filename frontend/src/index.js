@@ -86,7 +86,11 @@ albForm.addEventListener("submit", function(e){
 
 fetch(ALBUMS_PATH)
 .then(res => res.json())
-.then(json => json.forEach(album => renderAlbum(album)))
+.then(json => json.forEach(album => {
+    renderAlbum(album)
+    renderSongs(album)
+    debugger
+}))
 
 fetch (GENRES_PATH)
 .then(res => res.json())
@@ -107,6 +111,19 @@ function renderAlbum(album){
     `
     divCard.innerHTML += html
     flexContainer.appendChild(divCard)
+}
+
+function renderSongs(album){
+    let songsDiv = document.createElement('div')
+    songsDiv.setAttribute('class', 'songs-container')
+    let divCard = document.querySelector(`[data-album-id='${album.id}']`)
+    divCard.appendChild(songsDiv)
+    for (let i = 0; i < album.songs.length; i++){
+        debugger
+        songsDiv.innerHTML += `
+        <li>${i + 1}. ${album.songs[i].title} | ${album.songs[i].runtime}</li>
+        `
+    }
 }
 
 function renderGenre(genre){
