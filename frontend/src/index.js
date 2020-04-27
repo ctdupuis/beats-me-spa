@@ -8,6 +8,14 @@ const epBtn = document.querySelector('button#EP')
 const lpBtn = document.querySelector('button#LP')
 const buttons = document.querySelectorAll('button.button')
 
+function generateFields(num, parent) {
+    parent.innerHTML += `
+    <label for="track${num}-title">Track ${num} Title</label>
+    <input type="text" name="track${num}-title">
+    <label for="track${num}-runtime">Track ${num} Runtime</label>
+    <input type="text" name="track${num}-runtime">
+    `
+}
 buttons.forEach(btn => {
     btn.addEventListener("click", function(e) {
     const [single, ep, lp] = buttons
@@ -18,12 +26,8 @@ buttons.forEach(btn => {
         ep.style.display = "none"
         lp.style.display = ""
         single.style.display = ""
-        for (let i = 5; i >= 2; i--) {
-            let titleField = document.createElement('input')
-            titleField.outerHTML = `<input type="text" name="track${i}-title">`
-            // titleField.setAttribute('type', 'text')
-            // titleField.setAttribute('name', `track${i}-title`)
-            albForm.appendChild(titleField)
+        for (let i = 2; i <= 5; i++) {
+            generateFields(i, albForm)
             // <label for='track1-title'>Track 1 Title</label>
             // <input type='text' name='track1-title' value="BAD NEWS"></input>
         }
@@ -32,13 +36,18 @@ buttons.forEach(btn => {
         lp.style.display = "none"
         ep.style.display = ""
         single.style.display = ""
+        for (let i = 2; i <= 16; i++) {
+            generateFields(i, albForm)
+            // <label for='track1-title'>Track 1 Title</label>
+            // <input type='text' name='track1-title' value="BAD NEWS"></input>
+        }
     } else {
         // just do one field
         single.style.display = "none"
         lp.style.display = ""
         ep.style.display = ""
     };
-
+    albForm.innerHTML += "<input type='submit' value='Add Album'>"
     }
     )
 })
