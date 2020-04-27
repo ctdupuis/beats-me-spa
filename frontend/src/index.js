@@ -6,19 +6,45 @@ const albForm = document.querySelector('form#new-album')
 const singleBtn = document.querySelector('button#single')
 const epBtn = document.querySelector('button#EP')
 const lpBtn = document.querySelector('button#LP')
+const buttons = document.querySelectorAll('button.button')
 
-singleBtn.addEventListener("click", function(e){
+buttons.forEach(btn => {
+    btn.addEventListener("click", function(e) {
+    const [single, ep, lp] = buttons
     albForm.style.display = ""
-    singleBtn.style.display = "none"
+    const input = document.querySelector('input#track-input')
+    if (e.target === ep) {
+        // generate 5 fields
+        ep.style.display = "none"
+        lp.style.display = ""
+        single.style.display = ""
+        for (let i = 5; i >= 2; i--) {
+            let titleField = document.createElement('input')
+            titleField.outerHTML = `<input type="text" name="track${i}-title">`
+            // titleField.setAttribute('type', 'text')
+            // titleField.setAttribute('name', `track${i}-title`)
+            albForm.appendChild(titleField)
+            // <label for='track1-title'>Track 1 Title</label>
+            // <input type='text' name='track1-title' value="BAD NEWS"></input>
+        }
+    } else if (e.target === lp) {
+        // generate 16 fields
+        lp.style.display = "none"
+        ep.style.display = ""
+        single.style.display = ""
+    } else {
+        // just do one field
+        single.style.display = "none"
+        lp.style.display = ""
+        ep.style.display = ""
+    };
+
+    }
+    )
 })
-epBtn.addEventListener("click", function(e){
-    albForm.style.display = ""
-    epBtn.style.display = "none"
-})
-lpBtn.addEventListener("click", function(e){
-    albForm.style.display = ""
-    lpBtn.style.display = "none"
-})
+
+
+
 albForm.addEventListener("submit", function(e){
     // debugger
     let albumdata = {
@@ -64,11 +90,11 @@ function renderAlbum(album){
     divCard.setAttribute('data-album-id', album.id)
     divCard.setAttribute('class', 'album-card')
     let html = `
-    <div class="img-container">
     <span class="alb-name">${album.name}</span>
+    <div class="img-container">
         <img src="${album.img_url}">
-    <span class="alb-artist">${album.artist.name}</span>
     </div>
+    <span class="alb-artist">${album.artist.name}</span>
     `
     divCard.innerHTML += html
     flexContainer.appendChild(divCard)

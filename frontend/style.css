@@ -41,3 +41,21 @@ body {
     border: 5px;
     border-radius: 5px;
 }
+
+.header {
+    display: flex;
+    background-color: rgb(41, 41, 41);
+    width: 100%;
+    border-left: 14px;
+    padding-left: 2px;
+    height: auto;
+}
+
+.title {
+    padding-left: 10px;
+}
+
+.navbar {
+    margin-left: auto;
+    display: flex;
+}
