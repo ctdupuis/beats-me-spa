@@ -10,9 +10,9 @@ const buttons = document.querySelectorAll('button.button')
 function generateFields(num, parent) {
     parent.innerHTML += `
     <label for="track${num}-title">Track ${num} Title</label>
-    <input type="text" name="track${num}-title">
+    <input class="track-input" type="text" name="track${num}-title">
     <label for="track${num}-runtime">Track ${num} Runtime</label>
-    <input type="text" name="track${num}-runtime">
+    <input class="track-input" type="text" name="track${num}-runtime">
     `
 }
 buttons.forEach(btn => {
