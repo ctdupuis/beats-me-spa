@@ -1,8 +1,7 @@
-const BASE_PATH = 'http://localhost:3000'
-const ALBUMS_PATH = `${BASE_PATH}/albums`
-const GENRES_PATH = `${BASE_PATH}/genres`
+const baseURL = 'http://localhost:3000'
+let app = new App(baseURL)
+app.start()
 
-const albForm = document.querySelector('form#new-album')
 // const singleBtn = document.querySelector('button#single')
 // const epBtn = document.querySelector('button#EP')
 // const lpBtn = document.querySelector('button#LP')
