@@ -15,15 +15,19 @@ class App {
     }
 
     getAlbums = () => {
-        fetch(this.baseURL)
+        fetch(this.albumsURL)
         .then(res => res.json())
-        .then(json => json.forEach(album => {
-            let alb = new Album(album.name, album.artist, album.genre, album.img_url)
-            alb.songs.forEach(song => alb.storeSong(song))
-        }))
+        .then(json =>  {
+            json.forEach(album => {
+                let alb = new Album(album.name, album.artist.name, album.genre.name, album.img_url, album.songs)
+                debugger
+                this.albums.push(alb)
+            })
+        }
+        )
     }
 
-    renderAlbums = (album) => {
+    renderAlbum = (album) => {
         let html = `<span class="alb-name">${album.name}</span>
         <div class="img-container">
             <img src="${album.img_url}">
@@ -38,7 +42,10 @@ class App {
     }
 
     start = () => {
-        this.renderAlbums(this.albums)
+        this.getAlbums()
+        debugger
+        this.albums.forEach(album => renderAlbum(album))
+        debugger
     }
 }
 
