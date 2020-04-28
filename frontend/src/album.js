@@ -7,7 +7,5 @@ class Album {
         this.imgURL = imgURL
         this.songs = []
         songs.forEach(song => this.songs.push(song))
-    }
-
-   
+    }   
 }

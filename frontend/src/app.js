@@ -11,7 +11,36 @@ class App {
             "accept": "application/json"
         }
         this.flexContainer = document.querySelector('div.flex-container')
+        this.formBtns = document.querySelectorAll('button.form-btn')
 
+    }
+
+    bindListeners = () => {
+        this.formBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const [si, ep, lp] = this.formBtns
+                this.newAlbumForm.style.display = ""
+                if (e.target === ep) {
+                    ep.style.display = "none"
+                    lp.style.display = ""
+                    si.style.display = ""
+                    for (let i = 2; i <= 5; i++) {
+                        generateFields(i, this.newAlbumForm)
+                    }
+                } else if (e.target === lp) {
+                    lp.style.display = "none"
+                    ep.style.display = ""
+                    for (let i = 2; i <= 16; i++) {
+                        generateFields(i, this.newAlbumForm)
+                    }
+                } else {
+                    si.style.display = "none"
+                    lp.style.display = ""
+                    ep.style.display = ""
+                }
+                this.newAlbumForm.innerHTML += "<input type='submit' value='Add Album'>"
+            })
+        })
     }
 
     getAlbums = () => {
@@ -20,9 +49,7 @@ class App {
         .then(json =>  {
             json.forEach(album => {
                 let alb = new Album(album.id, album.name, album.artist.name, album.genre.name, album.img_url, album.songs)
-                debugger
                 this.albums.push(alb)
-                debugger
             })
             this.albums.forEach(album => {
                 this.renderAlbum(album)
