@@ -29,7 +29,6 @@ class App {
             btn.addEventListener("click", (e) => {
                 const [si, ep, lp] = this.formBtns
                 this.newAlbumForm.style.display = ""
-                this.applyGenres()
                 if (e.target === ep) {
                     ep.style.display = "none"
                     lp.style.display = ""
@@ -76,11 +75,20 @@ class App {
         fetch(this.genresURL)
         .then(res => res.json())
         .then(json => json.forEach(genre => {
-            debugger
-            let newGen = new Genre(genre.name)
-            this.genres.push(newGen)
+            let newGen = new Genre(genre.id, genre.name);
+            this.genres.push(newGen);
         }))
+    }
+
+    applyGenres = () => {
         debugger
+        let genSelect = document.getElementById('genre_id')
+        debugger
+        this.genres.forEach(genre => {
+            debugger
+            let html = `<option value="${genre.id}">${genre.name}</option>`
+            genSelect.children.push(html)
+        })
     }
 
     renderAlbum = (album) => {
