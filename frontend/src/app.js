@@ -15,6 +15,15 @@ class App {
 
     }
 
+    generateFields = (num, parent) => {
+        parent.innerHTML += `
+        <label for="track${num}-title">Track ${num} Title</label>
+        <input type="text" name="track${num}-title">
+        <label for="track${num}-runtime">Track ${num} Runtime</label>
+        <input type="text" name="track${num}-runtime">
+        `
+    }
+
     bindListeners = () => {
         this.formBtns.forEach(btn => {
             btn.addEventListener("click", (e) => {
@@ -25,13 +34,13 @@ class App {
                     lp.style.display = ""
                     si.style.display = ""
                     for (let i = 2; i <= 5; i++) {
-                        generateFields(i, this.newAlbumForm)
+                        this.generateFields(i, this.newAlbumForm)
                     }
                 } else if (e.target === lp) {
                     lp.style.display = "none"
                     ep.style.display = ""
                     for (let i = 2; i <= 16; i++) {
-                        generateFields(i, this.newAlbumForm)
+                        this.generateFields(i, this.newAlbumForm)
                     }
                 } else {
                     si.style.display = "none"
@@ -40,7 +49,8 @@ class App {
                 }
                 this.newAlbumForm.innerHTML += "<input type='submit' value='Add Album'>"
             })
-        })
+        });
+
     }
 
     getAlbums = () => {
