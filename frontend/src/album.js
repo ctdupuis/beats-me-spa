@@ -1,5 +1,6 @@
 class Album {
-    constructor(name, artist, genre, imgURL, songs){
+    constructor(id, name, artist, genre, imgURL, songs){
+        this.id = id
         this.name = name
         this.artist = artist
         this.genre = genre

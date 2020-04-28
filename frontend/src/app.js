@@ -19,7 +19,7 @@ class App {
         .then(res => res.json())
         .then(json =>  {
             json.forEach(album => {
-                let alb = new Album(album.name, album.artist.name, album.genre.name, album.img_url, album.songs)
+                let alb = new Album(album.id, album.name, album.artist.name, album.genre.name, album.img_url, album.songs)
                 debugger
                 this.albums.push(alb)
                 debugger
@@ -45,6 +45,20 @@ class App {
         divCard.setAttribute('class', 'album-card')
         divCard.innerHTML += html
         this.flexContainer.appendChild(divCard)
+    }
+
+    renderSongs = (album) => {
+        let songsDiv = document.createElement('div')
+        songsDiv.setAttribute('class', 'tracklist-container')
+        let divCard = document.querySelector(`[data-album-id='${album.id}']`)
+        divCard.appendChild(songsDiv)
+        for (let i = 0; i < album.songs.length; i++) {
+            songsDiv.innerHTML += `
+            <div class="song-container">
+            <div class="song-title">${i + 1}. ${album.songs[i].title} <div>${album.songs[i].runtime}</div></div>
+            </div>
+            `
+        }
     }
 }
 
