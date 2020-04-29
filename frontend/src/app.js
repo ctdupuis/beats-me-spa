@@ -45,22 +45,27 @@ class App {
     // }
 
     postAlbum = (event) => {
+        debugger
         let albumdata = {
             album: { 
                 name: event.target.children["album-name"].value,
                 artist_name: event.target.children["artist-name"].value,
-                genre_id: event.target.children['genre_id'].value,
+                genre_name: event.target.children['genre'].value,
                 img_url: event.target.children['album-img'].value,
                 songs_attributes: []
             }
         }
+        debugger
         let songs = Array.from(event.target.children).filter(child => {
             return child.className === 'track-input'
         })
-        for (let x = 0, y = 1; x < songs.length; x+2, y+2) {
-            let song = Object.assign({}, {title: songs[x].value, runtime: songs[y].value})
+        let x = 0
+        while (songs[x] !== undefined) {
+            let song = Object.assign({}, {title: songs[x].value, runtime: songs[x+1].value});
             albumdata.album.songs_attributes.push(song)
-            }
+            x += 2
+        }
+        // debugger
         let object = {
             method: 'POST',
             headers: this.headerObj,
@@ -68,10 +73,12 @@ class App {
         }
         fetch(this.albumsURL, object)
         .then(res => res.json())
-        .then(album => {
-           
+        .then(alb => {
+            debugger
+            let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url)
+            album.makeCard(this.flexContainer)    
         })
-        e.preventDefault();
+        event.preventDefault();
     }
 
 }
