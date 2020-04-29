@@ -12,11 +12,13 @@ class Album < ApplicationRecord
     end
 
     def songs_attributes=(attributes_hash)
+        binding.pry
         attributes_hash.each do |k, value|
+            binding.pry
             song = Song.new(value)
             song.artist_id = self.artist_id
             song.save
-            self.songs << song unless song.title.blank?
+            self.songs << song 
         end
     end
 

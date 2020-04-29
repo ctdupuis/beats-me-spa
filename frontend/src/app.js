@@ -15,12 +15,16 @@ class App {
 
     }
 
+    static flexContainer = document.querySelector('div.flex-container')
+    static albumsURL = `${this.baseUrl}/albums`
+    static albums = []
+
     generateFields = (num, parent) => {
         parent.innerHTML += `
         <label for="track${num}-title">Track ${num} Title</label>
-        <input type="text" name="track${num}-title">
+        <input class="track-input" type="text" name="track${num}-title" value="track${num}">
         <label for="track${num}-runtime">Track ${num} Runtime</label>
-        <input type="text" name="track${num}-runtime">
+        <input class="track-input" type="text" name="track${num}-runtime" value="${num}:00">
         `
     }
 
@@ -53,21 +57,35 @@ class App {
         });
         // let submit = document.getElementById('new-alb')
         this.newAlbumForm.addEventListener("submit", function(e){
+           
             debugger
             let albumdata = {
                 album: { 
                     name: e.target.children["album-name"].value,
                     artist_name: e.target.children["artist-name"].value,
                     genre_id: e.target.children['genre_id'].value,
-                    img_url: e.target.children['album-img'].value,
-                    songs_attributes: [
-                        {
-                            title: e.target.children["track1-title"].value,
-                            runtime: e.target.children["track1-runtime"].value
-                        }
-                    ]
+                    img_url: e.target.children['album-img'].value
                 }
             }
+            let songs = Array.from(e.target.children).filter(child => {
+                // debugger
+                return child.className === 'track-input'
+            })
+            albumdata.album.songs_attributes = [] 
+            for (let x = 0, y = 1; x < songs.length; x+2, y+2) {
+                let song = Object.assign({}, {title: songs[x].value, runtime: songs[y].value})
+                albumdata.album.songs_attributes.push(song)
+                // if (songs[i].name === `track${i}-title`) {
+                //     albumdata.album.songs_attributes.push({title: songs[i].value})
+                // } else {
+                //     // let obj = {}
+                //     // obj.runtime = songs[i].value
+                //     let x = (i-1)
+                //     let target = albumdata.album.songs_attributes[x]
+                //     let runtime = Object.assign({}, {runtime: songs[i].value})
+                //     debugger
+                //     Object.assign(target, runtime)
+                }
             debugger
             let object = {
                 method: 'POST',
@@ -80,9 +98,12 @@ class App {
             debugger
             fetch(url, object)
             .then(res => res.json())
-            .then(json => {
-                this.renderAlbum(json)
-                this.renderSongs(json)
+            .then(album => {
+                debugger
+                let alb = new Album(album.id, album.name, album.artist.name, album.genre.name, album.img_url, album.songs)
+                App.albums.push(alb)
+                App.renderAlbum(alb)
+                App.renderSongs(alb)
             })
             e.preventDefault();
         })
@@ -96,11 +117,11 @@ class App {
         .then(json =>  {
             json.forEach(album => {
                 let alb = new Album(album.id, album.name, album.artist.name, album.genre.name, album.img_url, album.songs)
-                this.albums.push(alb)
+                App.albums.push(alb)
             })
-            this.albums.forEach(album => {
+            App.albums.forEach(album => {
                 App.renderAlbum(album)
-                this.renderSongs(album)
+                App.renderSongs(album)
             })
         }
         )
@@ -135,11 +156,11 @@ class App {
         divCard.setAttribute('data-album-id', album.id)
         divCard.setAttribute('class', 'album-card')
         divCard.innerHTML += html
-        debugger
+        // debugger
         App.flexContainer.appendChild(divCard)
     }
 
-    renderSongs = (album) => {
+    static renderSongs = (album) => {
         let songsDiv = document.createElement('div')
         songsDiv.setAttribute('class', 'tracklist-container')
         let divCard = document.querySelector(`[data-album-id='${album.id}']`)
