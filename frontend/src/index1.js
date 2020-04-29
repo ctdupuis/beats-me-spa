@@ -54,7 +54,7 @@ buttons.forEach(btn => {
 
 
 albForm.addEventListener("submit", function(e){
-    // debugger
+    debugger
     let albumdata = {
         album: { 
             name: e.target.children["album-name"].value,

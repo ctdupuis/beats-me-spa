@@ -25,6 +25,7 @@ class App {
     }
 
     bindListeners = () => {
+        let url = this.albumsURL
         this.formBtns.forEach(btn => {
             btn.addEventListener("click", (e) => {
                 const [si, ep, lp] = this.formBtns
@@ -47,11 +48,46 @@ class App {
                     lp.style.display = ""
                     ep.style.display = ""
                 }
-                this.newAlbumForm.innerHTML += "<input id='new-alb' type='submit' value='Add Album'>"
+                this.newAlbumForm.innerHTML += "<input action='/albums' type='submit' value='Add Album'>"
             })
         });
-        let submit = document.getElementById('new-alb')
+        // let submit = document.getElementById('new-alb')
+        this.newAlbumForm.addEventListener("submit", function(e){
+            debugger
+            let albumdata = {
+                album: { 
+                    name: e.target.children["album-name"].value,
+                    artist_name: e.target.children["artist-name"].value,
+                    genre_id: e.target.children['genre_id'].value,
+                    img_url: e.target.children['album-img'].value,
+                    songs_attributes: [
+                        {
+                            title: e.target.children["track1-title"].value,
+                            runtime: e.target.children["track1-runtime"].value
+                        }
+                    ]
+                }
+            }
+            debugger
+            let object = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify(albumdata)
+            }
+            debugger
+            fetch(url, object)
+            .then(res => res.json())
+            .then(json => {
+                this.renderAlbum(json)
+                this.renderSongs(json)
+            })
+            e.preventDefault();
+        })
     }
+
 
     getAlbums = () => {
         // debugger
@@ -63,7 +99,7 @@ class App {
                 this.albums.push(alb)
             })
             this.albums.forEach(album => {
-                this.renderAlbum(album)
+                App.renderAlbum(album)
                 this.renderSongs(album)
             })
         }
@@ -77,22 +113,19 @@ class App {
         .then(json => json.forEach(genre => {
             let newGen = new Genre(genre.id, genre.name);
             this.genres.push(newGen);
+            this.applyGenre(newGen)
         }))
     }
 
-    applyGenres = () => {
-        debugger
+    applyGenre = (genre) => {
+        // debugger
         let genSelect = document.getElementById('genre_id')
-        debugger
-        this.genres.forEach(genre => {
-            debugger
-            let html = `<option value="${genre.id}">${genre.name}</option>`
-            genSelect.children.push(html)
-        })
+        let html = `<option value="${genre.id}">${genre.name}</option>`
+        genSelect.innerHTML += html
     }
 
-    renderAlbum = (album) => {
-        let html = `<span class="alb-name">${album.name}</span>
+    static renderAlbum = (album) => {
+        let html = `<span class="alb-name">${album.name} | ${album.genre}</span>
         <div class="img-container">
             <img src="${album.imgURL}">
         </div>
@@ -102,7 +135,8 @@ class App {
         divCard.setAttribute('data-album-id', album.id)
         divCard.setAttribute('class', 'album-card')
         divCard.innerHTML += html
-        this.flexContainer.appendChild(divCard)
+        debugger
+        App.flexContainer.appendChild(divCard)
     }
 
     renderSongs = (album) => {
