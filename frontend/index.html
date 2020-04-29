@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="style.css">
     <title>BeatsME</title>
     <script src="./src/album.js" defer></script>
-    <script src="./src/genre.js" defer></script>
+    <script src="./src/fetch.js" defer></script>
     <script src="./src/app.js" defer></script>
     <script src="./src/index.js" defer></script>
 </head>
@@ -14,13 +14,12 @@
         <div class="title"><h1>BeatsME</h1></div>
         <div class="navbar"></div>
     </header>
-    <button class="form-btn" id="single">Submit a New Single</button><button id="single-info">?</button>
-    <br>
-    <button class="form-btn" id="EP">Submit an EP</button><button id="ep-info">?</button>
-    <br>
-    <button class="form-btn" id="LP">Submit a full LP</button><button id="lp-info">?</button>
+    <button id="form-btn">New Submission</button>
     <br>
     <form id='new-album' action="/albums" method="POST" style="display: none;">
+        Single<input type='radio' name='alb-type' value='Single'>
+        EP<input type='radio' name='alb-type' value='EP'><button id='ep-info'>?</button>
+        LP<input type='radio' name='alb-type' value='LP'><button id='lp-info'>?</button>
         <label for='album-name'>Album Name</label>
         <input type='text' name='album-name' value="WELCOME HOME"><br>
         <label for='artist-name'>Artist</label>
@@ -46,10 +45,10 @@
         <br>
         <input class="track-input" type='text' name='track-title' value="BAD NEWS">
         <input class="track-input" type='text' name='track-runtime' value="2:44">
-        <input class="track-input" type='text' name='track-title'>
-        <input class="track-input" type='text' name='track-runtime'>
-        <input class="track-input" type='text' name='track-title'>
-        <input class="track-input" type='text' name='track-runtime'>
+        <input class="track-input" type='text' name='track-title' value="SAYONARA">
+        <input class="track-input" type='text' name='track-runtime' value="5:43">
+        <input class="track-input" type='text' name='track-title' value="RACECAR">
+        <input class="track-input" type='text' name='track-runtime' value="3:23">
         <input class="track-input" type='text' name='track-title'>
         <input class="track-input" type='text' name='track-runtime'>
         <input class="track-input" type='text' name='track-title'>
@@ -65,7 +64,7 @@
         <input class="track-input" type='text' name='track-title'>
         <input class="track-input" type='text' name='track-runtime'>
         <input class="track-input" type='text' name='track-title'>
-        <input class="track-input" type='text' name='track-runtime'>x
+        <input class="track-input" type='text' name='track-runtime'>
         <br>
         <input type='submit'>
     </form>

@@ -11,7 +11,7 @@ class Album < ApplicationRecord
         self.artist = Artist.find_or_create_by(name: name)
     end
 
-    def genre=(genre
+    def genre=(genre)
         self.genre = Genre.find_or_create_by(name: genre)
     end
 

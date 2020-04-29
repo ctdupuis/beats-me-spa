@@ -3,7 +3,7 @@ class Fetch {
         this.url = url
     }
 
-    static get {
+    static get(url) {
         return fetch(this.url).then( r => r.json())
     }
 }
