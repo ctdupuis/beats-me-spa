@@ -12,6 +12,7 @@ class App {
         }
         this.flexContainer = document.querySelector('div.flex-container')
         this.formBtns = document.querySelectorAll('button.form-btn')
+        
 
     }
 
@@ -57,34 +58,21 @@ class App {
         });
         // let submit = document.getElementById('new-alb')
         this.newAlbumForm.addEventListener("submit", function(e){
-           
-            debugger
             let albumdata = {
                 album: { 
                     name: e.target.children["album-name"].value,
                     artist_name: e.target.children["artist-name"].value,
                     genre_id: e.target.children['genre_id'].value,
-                    img_url: e.target.children['album-img'].value
+                    img_url: e.target.children['album-img'].value,
+                    songs_attributes: []
                 }
             }
             let songs = Array.from(e.target.children).filter(child => {
-                // debugger
                 return child.className === 'track-input'
             })
-            albumdata.album.songs_attributes = [] 
             for (let x = 0, y = 1; x < songs.length; x+2, y+2) {
                 let song = Object.assign({}, {title: songs[x].value, runtime: songs[y].value})
                 albumdata.album.songs_attributes.push(song)
-                // if (songs[i].name === `track${i}-title`) {
-                //     albumdata.album.songs_attributes.push({title: songs[i].value})
-                // } else {
-                //     // let obj = {}
-                //     // obj.runtime = songs[i].value
-                //     let x = (i-1)
-                //     let target = albumdata.album.songs_attributes[x]
-                //     let runtime = Object.assign({}, {runtime: songs[i].value})
-                //     debugger
-                //     Object.assign(target, runtime)
                 }
             debugger
             let object = {
@@ -99,7 +87,7 @@ class App {
             fetch(url, object)
             .then(res => res.json())
             .then(album => {
-                debugger
+                // debugger
                 let alb = new Album(album.id, album.name, album.artist.name, album.genre.name, album.img_url, album.songs)
                 App.albums.push(alb)
                 App.renderAlbum(alb)
