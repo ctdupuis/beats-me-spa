@@ -11,6 +11,10 @@ class Album < ApplicationRecord
         self.artist = Artist.find_or_create_by(name: name)
     end
 
+    def genre=(genre
+        self.genre = Genre.find_or_create_by(name: genre)
+    end
+
     def songs_attributes=(attributes_hash)
         binding.pry
         attributes_hash.each do |k, value|

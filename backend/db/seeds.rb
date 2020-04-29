@@ -52,10 +52,6 @@ genres = ["Hip Hop",
         "Folk Rock"
 ]
 
-genres.each do |genre|
-    Genre.create(name: genre)
-end
-
 def make_seeds(track_hash, album, artist, genre, img)
     genre = Genre.find_or_create_by(name: genre)
     artist = Artist.find_or_create_by(name: artist)
