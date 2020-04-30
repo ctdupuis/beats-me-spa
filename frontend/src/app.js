@@ -20,14 +20,25 @@ class App {
     renderAlbums = () => {
         fetch(this.albumsURL)
         .then(r => r.json())
-        .then(json => json.forEach(alb => {
+        .then(json => { 
+            json.forEach(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
             album.makeCard(this.flexContainer)
-            let btn = document.querySelector(`[data-del-id='${alb.id}']`)
-            btn.addEventListener('click', function() { 
-                this.deleteAlbum(album) 
+            // debugger
+            // let btn = document.querySelector(`[data-del-id='${alb.id}']`)
+            // debugger
+            // btn.addEventListener('click',  () => { 
+            //     debugger
+            //     this.deleteAlbum(album) 
+            // })
+        })
+        document.querySelectorAll('button.delete').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.deleteAlbum(e.target.dataset.delId, this.albumsURL)
+                // debugger
             })
-        }))
+        }) 
+        })
         .catch(err => alert(err))
     }
 
@@ -70,16 +81,27 @@ class App {
         .then(res => res.json())
         .then(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
-            album.makeCard(this.flexContainer)    
+            album.makeCard(this.flexContainer)  
+            debugger
+            // document.querySelector(`[data-del-id='${album.id}']`)
         })
         event.preventDefault();
         this.newAlbumForm.style.display = "none"
     }
 
-    deleteAlbum = (album) => {
-        let divCard = document.querySelector(`[data-alb-id='${album.id}']`)
-        divCard.remove()
+    deleteAlbum = (albumID, url) => {
+        let object = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'applicaiton/json'
+            }
+        }
         debugger
+        fetch(`${url}/${albumID}`, object)
+        .then(r => r.json())
+        let divCard = document.querySelector(`[data-alb-id='${albumID}']`)
+        divCard.remove()
     }
 
     addListeners = () => {
@@ -106,6 +128,7 @@ class App {
 
     start = () => {
         this.renderAlbums()
+        // debugger
         this.addListeners()
     }
 

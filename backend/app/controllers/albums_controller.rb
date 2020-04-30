@@ -16,7 +16,7 @@ class AlbumsController < ApplicationController
     end
 
     def destroy
-        binding.pry
+        album = Album.find(params[:id])
         album.songs.destroy
         album.destroy
     end
