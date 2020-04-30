@@ -22,7 +22,6 @@ class Album < ApplicationRecord
     def songs_attributes=(attributes_hash)
         attributes_hash.each do |k, value|
             song = Song.new(k)
-            # binding.pry
             song.artist_id = self.artist_id
             song.album_id = self.id
             song.save

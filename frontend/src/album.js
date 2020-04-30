@@ -20,7 +20,6 @@ class Album {
             <button class="delete" data-del-id="${this.id}">Delete</button>
         </div> `
         parentElement.innerHTML += html
-        // debugger
         let songsDiv = document.createElement('div')
         songsDiv.setAttribute('class', 'tracklist-container')
         for (let i = 0; i < this.songs.length; i++) {
@@ -31,7 +30,6 @@ class Album {
             `
         }
         document.querySelector(`[data-alb-id='${this.id}']`).appendChild(songsDiv)
-        // debugger
     }
 
 }

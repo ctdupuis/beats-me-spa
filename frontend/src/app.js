@@ -25,10 +25,8 @@ class App {
             album.makeCard(this.flexContainer)
             let btn = document.querySelector(`[data-del-id='${alb.id}']`)
             btn.addEventListener('click', function() { 
-                // debugger
                 this.deleteAlbum(album) 
             })
-            // debugger
         }))
         .catch(err => alert(err))
     }
@@ -52,17 +50,17 @@ class App {
                 songs_attributes: []
             }
         }
+        // form an array of input fields
         let songs = Array.from(event.target.children).filter(child => {
             return child.className === 'track-input'
         })
+        // loop to format the field values for submission
         let x = 0
         while (songs[x] !== undefined) {
             let songObj = Object.assign({}, {title: songs[x].value, runtime: songs[x+1].value});
-            // debugger
             albumdata.album.songs_attributes.push(songObj)
             x += 2
         }
-        // debugger
         let object = {
             method: 'POST',
             headers: this.headerObj,
@@ -71,11 +69,11 @@ class App {
         fetch(this.albumsURL, object)
         .then(res => res.json())
         .then(alb => {
-            // debugger
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
             album.makeCard(this.flexContainer)    
         })
         event.preventDefault();
+        this.newAlbumForm.style.display = "none"
     }
 
     deleteAlbum = (album) => {
@@ -88,8 +86,8 @@ class App {
         // adds listeners to buttons
         for (let i = 0; i < this.radios.length; i++) {
             this.radios[i].addEventListener('click', function(e){
-                let target = Number(e.target.value * 2)
                 let inputs = document.querySelectorAll('input.track-input')
+                let target = Number(e.target.value * 2)
                 for(let j = 0; j < target; j++) {
                     inputs[j].style.display = "flex"
                 }
@@ -104,9 +102,6 @@ class App {
         document.getElementById('lp-info').addEventListener('click', function(e) {
             alert("A Long Playing album is normally at least 6 songs in length")
         })
-        let titleClone = this.inputs[this.inputs.length - 2].cloneNode(true)
-        let runtimeClone = this.inputs[this.inputs.length - 1].cloneNode(true)
-        debugger
     }
 
     start = () => {
