@@ -17,9 +17,9 @@
     <button id="form-btn">New Submission</button>
     <br>
     <form id='new-album' action="/albums" method="POST" style="display: none;">
-        Single<input type='radio' name='alb-type' value='Single'>
-        EP<input type='radio' name='alb-type' value='EP'><button id='ep-info'>?</button>
-        LP<input type='radio' name='alb-type' value='LP'><button id='lp-info'>?</button>
+        Single<input type='radio' class='radio' name='alb-type' value='1'>
+        EP<input type='radio' class='radio' name='alb-type' value='5'><button id='ep-info'>?</button>
+        LP<input type='radio' class='radio' name='alb-type' value='12'><button id='lp-info'>?</button>
         <label for='album-name'>Album Name</label>
         <input type='text' name='album-name' value="WELCOME HOME"><br>
         <label for='artist-name'>Artist</label>
@@ -39,34 +39,34 @@
         </select>
         <br>
         <label for='album-img'>Album Cover</label>
-        <input type="text" name='album-img' value="data:image/jpeg;base64,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>
+        <input type="text" name='album-img' value="data:image/jpeg;base64,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">
         <br><br>
         <label id="tl-title">Tracklist</label>
         <br>
-        <input class="track-input" type='text' name='track-title' value="BAD NEWS" placeholder='track1 title'>
-        <input class="track-input" type='text' name='track-runtime' value="2:44" placeholder='track1 runtime'>
-        <input class="track-input" type='text' name='track-title' value="SAYONARA" placeholder='track2 title'>
-        <input class="track-input" type='text' name='track-runtime' value="5:43" placeholder='track2 runtime'>
-        <input class="track-input" type='text' name='track-title' value="RACECAR" placeholder='track3 title'>
-        <input class="track-input" type='text' name='track-runtime' value="3:23" placeholder='track3 runtime'>
-        <input class="track-input" type='text' name='track-title' placeholder='track4 title'>
-        <input class="track-input" type='text' name='track-runtime' placeholder='track4 runtime'>
-        <input class="track-input" type='text' name='track-title' placeholder='track5 title'>
-        <input class="track-input" type='text' name='track-runtime' placeholder='track5 runtime'>    <!-- 5 tracks-->
-        <input class="track-input" type='text' name='track-title' placeholder='track6 title'>
-        <input class="track-input" type='text' name='track-runtime' placeholder='track6 runtime'>
-        <input class="track-input" type='text' name='track-title' placeholder='track7 title'>
-        <input class="track-input" type='text' name='track-runtime' placeholder='track7 runtime'>
-        <input class="track-input" type='text' name='track-title' placeholder='track8 title'>
-        <input class="track-input" type='text' name='track-runtime' placeholder='track8 runtime'>
-        <input class="track-input" type='text' name='track-title' placeholder='track9 title'>
-        <input class="track-input" type='text' name='track-runtime' placeholder='track9 runtime'>
-        <input class="track-input" type='text' name='track-title' placeholder='track10 title'>
-        <input class="track-input" type='text' name='track-runtime' placeholder='track10 runtime'>
-        <input class="track-input" type='text' name='track-title' placeholder='track11 title'>
-        <input class="track-input" type='text' name='track-runtime' placeholder='track11 runtime'>
-        <input class="track-input" type='text' name='track-title' placeholder='track12 title'>
-        <input class="track-input" type='text' name='track-runtime' placeholder='track12 runtime'>
+        <input class="track-input" type='text' name='track-title' value="BAD NEWS" placeholder='track1 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' value="2:44" placeholder='track1 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' value="SAYONARA" placeholder='track2 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' value="5:43" placeholder='track2 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' value="RACECAR" placeholder='track3 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' value="3:23" placeholder='track3 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' placeholder='track4 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' placeholder='track4 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' placeholder='track5 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' placeholder='track5 runtime' style="display: none;">    <!-- 5 tracks-->
+        <input class="track-input" type='text' name='track-title' placeholder='track6 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' placeholder='track6 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' placeholder='track7 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' placeholder='track7 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' placeholder='track8 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' placeholder='track8 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' placeholder='track9 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' placeholder='track9 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' placeholder='track10 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' placeholder='track10 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' placeholder='track11 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' placeholder='track11 runtime' style="display: none;">
+        <input class="track-input" type='text' name='track-title' placeholder='track12 title' style="display: none;">
+        <input class="track-input" type='text' name='track-runtime' placeholder='track12 runtime' style="display: none;">
 
         <br>
         <input type='submit'>

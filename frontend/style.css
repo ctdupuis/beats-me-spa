@@ -80,3 +80,7 @@ div.song-container div.song-title {
 div.song-container div.song-title div {
     margin-left: auto;
 }
+
+input.track-input {
+    display: none;
+}

@@ -7,6 +7,8 @@ class App {
         this.newAlb = false
         this.flexContainer = document.querySelector('div.flex-container')
         this.formBtn = document.getElementById('form-btn')
+        this.inputs = document.querySelectorAll('input.track-input')
+        this.radios = document.getElementsByClassName('radio')
         this.newAlbumForm.addEventListener("submit", this.postAlbum)
         this.formBtn.addEventListener("click", this.displayForm)
         this.headerObj = {
@@ -26,7 +28,7 @@ class App {
                 // debugger
                 this.deleteAlbum(album) 
             })
-            debugger
+            // debugger
         }))
         .catch(err => alert(err))
     }
@@ -82,8 +84,34 @@ class App {
         debugger
     }
 
+    addListeners = () => {
+        // adds listeners to buttons
+        for (let i = 0; i < this.radios.length; i++) {
+            this.radios[i].addEventListener('click', function(e){
+                let target = Number(e.target.value * 2)
+                let inputs = document.querySelectorAll('input.track-input')
+                for(let j = 0; j < target; j++) {
+                    inputs[j].style.display = "flex"
+                }
+                for (target; target < inputs.length; target++){
+                    inputs[target].style.display = "none"
+                }
+            })
+        }
+        document.getElementById('ep-info').addEventListener('click', function(e) {
+            alert("An Extended Play is normally anywhere from 3-5 songs in length")
+        })
+        document.getElementById('lp-info').addEventListener('click', function(e) {
+            alert("A Long Playing album is normally at least 6 songs in length")
+        })
+        let titleClone = this.inputs[this.inputs.length - 2].cloneNode(true)
+        let runtimeClone = this.inputs[this.inputs.length - 1].cloneNode(true)
+        debugger
+    }
+
     start = () => {
         this.renderAlbums()
+        this.addListeners()
     }
 
 }

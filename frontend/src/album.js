@@ -34,18 +34,4 @@ class Album {
         // debugger
     }
 
-    // delete = (div) => {
-    //     let configObject = {
-    //         method: "DELETE",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "Accept": "application/json"
-    //         },
-    //         body: JSON.stringify({id: this.id})
-    //     }
-    //     fetch(`http://localhost:3000/albums/${this.id}`, configObject)
-    //     .then(res => res.json())
-    //     div.remove()
-    // }
-
 }
