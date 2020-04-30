@@ -20,8 +20,13 @@ class App {
         .then(r => r.json())
         .then(json => json.forEach(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
-            debugger
             album.makeCard(this.flexContainer)
+            let btn = document.querySelector(`[data-del-id='${alb.id}']`)
+            btn.addEventListener('click', function() { 
+                // debugger
+                this.deleteAlbum(album) 
+            })
+            debugger
         }))
         .catch(err => alert(err))
     }
@@ -35,17 +40,7 @@ class App {
         }
     }
 
-    // generateFields = (num, parent) => {
-    //     parent.innerHTML += `
-    //     <label for="track${num}-title">Track ${num} Title</label>
-    //     <input class="track-input" type="text" name="track${num}-title" value="track${num}">
-    //     <label for="track${num}-runtime">Track ${num} Runtime</label>
-    //     <input class="track-input" type="text" name="track${num}-runtime" value="${num}:00">
-    //     `
-    // }
-
     postAlbum = (event) => {
-        // debugger
         let albumdata = {
             album: { 
                 name: event.target.children["album-name"].value,
@@ -58,15 +53,14 @@ class App {
         let songs = Array.from(event.target.children).filter(child => {
             return child.className === 'track-input'
         })
-        // debugger
         let x = 0
         while (songs[x] !== undefined) {
             let songObj = Object.assign({}, {title: songs[x].value, runtime: songs[x+1].value});
-            debugger
+            // debugger
             albumdata.album.songs_attributes.push(songObj)
             x += 2
         }
-        debugger
+        // debugger
         let object = {
             method: 'POST',
             headers: this.headerObj,
@@ -75,28 +69,27 @@ class App {
         fetch(this.albumsURL, object)
         .then(res => res.json())
         .then(alb => {
-            debugger
+            // debugger
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
             album.makeCard(this.flexContainer)    
         })
         event.preventDefault();
     }
 
+    deleteAlbum = (album) => {
+        let divCard = document.querySelector(`[data-alb-id='${album.id}']`)
+        divCard.remove()
+        debugger
+    }
+
+    start = () => {
+        this.renderAlbums()
+    }
+
 }
 
 
-    // static renderSongs = (album) => {
-    //     let songsDiv = document.createElement('div')
-    //     songsDiv.setAttribute('class', 'tracklist-container')
-    //     let divCard = document.querySelector(`[data-album-id='${album.id}']`)
-    //     divCard.appendChild(songsDiv)
-    //     for (let i = 0; i < album.songs.length; i++) {
-    //         songsDiv.innerHTML += `
-    //         <div class="song-container">
-    //         <div class="song-title">${i + 1}. ${album.songs[i].title} <div>${album.songs[i].runtime}</div></div>
-    //         </div>
-    //         `
-    //     }
-    // }
 
+
+  
 

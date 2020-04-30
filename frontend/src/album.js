@@ -7,7 +7,6 @@ class Album {
         this.imgURL = imgURL
         this.songs = []
         songs.forEach(song => this.songs.push(song))
-        debugger
     }   
 
     makeCard = (parentElement) => {
@@ -18,10 +17,10 @@ class Album {
             <img src="${this.imgURL}">
             </div>
             <span class="alb-artist">${this.artist}</span>
-
+            <button class="delete" data-del-id="${this.id}">Delete</button>
         </div> `
         parentElement.innerHTML += html
-        debugger
+        // debugger
         let songsDiv = document.createElement('div')
         songsDiv.setAttribute('class', 'tracklist-container')
         for (let i = 0; i < this.songs.length; i++) {
@@ -32,22 +31,21 @@ class Album {
             `
         }
         document.querySelector(`[data-alb-id='${this.id}']`).appendChild(songsDiv)
-        debugger
+        // debugger
     }
 
-    // renderSongs = (album, parentElement) => {
-    //     let songsDiv = document.createElement('div')
-    //     songsDiv.setAttribute('class', 'tracklist-container')
-    //     // let divCard = document.querySelector(`[data-album-id='${album.id}']`)
-    //     // divCard.appendChild(songsDiv)
-    //     parentElement.appendChild(songsDiv)
-    //     for (let i = 0; i < album.songs.length; i++) {
-    //         songsDiv.innerHTML += `
-    //         <div class="song-container">
-    //         <div class="song-title">${i + 1}. ${album.songs[i].title} <div>${album.songs[i].runtime}</div></div>
-    //         </div>
-    //         `
+    // delete = (div) => {
+    //     let configObject = {
+    //         method: "DELETE",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         },
+    //         body: JSON.stringify({id: this.id})
     //     }
+    //     fetch(`http://localhost:3000/albums/${this.id}`, configObject)
+    //     .then(res => res.json())
+    //     div.remove()
     // }
 
 }

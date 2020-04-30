@@ -16,6 +16,12 @@ class AlbumsController < ApplicationController
         render json: AlbumSerializer.new(albums).to_serialized_json
     end
 
+    def destroy
+        binding.pry
+        album.songs.destroy
+        album.destroy
+    end
+
     private
 
     def album_params
