@@ -19,8 +19,8 @@ class App {
         fetch(this.albumsURL)
         .then(r => r.json())
         .then(json => json.forEach(alb => {
-            let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url)
-            // debugger
+            let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
+            debugger
             album.makeCard(this.flexContainer)
         }))
         .catch(err => alert(err))
@@ -45,7 +45,7 @@ class App {
     // }
 
     postAlbum = (event) => {
-        debugger
+        // debugger
         let albumdata = {
             album: { 
                 name: event.target.children["album-name"].value,
@@ -55,17 +55,18 @@ class App {
                 songs_attributes: []
             }
         }
-        debugger
         let songs = Array.from(event.target.children).filter(child => {
             return child.className === 'track-input'
         })
+        // debugger
         let x = 0
         while (songs[x] !== undefined) {
-            let song = Object.assign({}, {title: songs[x].value, runtime: songs[x+1].value});
-            albumdata.album.songs_attributes.push(song)
+            let songObj = Object.assign({}, {title: songs[x].value, runtime: songs[x+1].value});
+            debugger
+            albumdata.album.songs_attributes.push(songObj)
             x += 2
         }
-        // debugger
+        debugger
         let object = {
             method: 'POST',
             headers: this.headerObj,
@@ -75,7 +76,7 @@ class App {
         .then(res => res.json())
         .then(alb => {
             debugger
-            let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url)
+            let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
             album.makeCard(this.flexContainer)    
         })
         event.preventDefault();
@@ -83,124 +84,6 @@ class App {
 
 }
 
-    // bindListeners = () => {
-    //     let url = this.albumsURL
-    //     this.formBtns.forEach(btn => {
-    //         btn.addEventListener("click", (e) => {
-    //             const [si, ep, lp] = this.formBtns
-    //             this.newAlbumForm.style.display = ""
-    //             if (e.target === ep) {
-    //                 ep.style.display = "none"
-    //                 lp.style.display = ""
-    //                 si.style.display = ""
-    //                 for (let i = 2; i <= 5; i++) {
-    //                     this.generateFields(i, this.newAlbumForm)
-    //                 }
-    //             } else if (e.target === lp) {
-    //                 lp.style.display = "none"
-    //                 ep.style.display = ""
-    //                 for (let i = 2; i <= 16; i++) {
-    //                     this.generateFields(i, this.newAlbumForm)
-    //                 }
-    //             } else {
-    //                 si.style.display = "none"
-    //                 lp.style.display = ""
-    //                 ep.style.display = ""
-    //             }
-    //             this.newAlbumForm.innerHTML += "<input action='/albums' type='submit' value='Add Album'>"
-    //         })
-    //     });
-    //     // let submit = document.getElementById('new-alb')
-    //     this.newAlbumForm.addEventListener("submit", function(e){
-    //         let albumdata = {
-    //             album: { 
-    //                 name: e.target.children["album-name"].value,
-    //                 artist_name: e.target.children["artist-name"].value,
-    //                 genre_id: e.target.children['genre_id'].value,
-    //                 img_url: e.target.children['album-img'].value,
-    //                 songs_attributes: []
-    //             }
-    //         }
-    //         let songs = Array.from(e.target.children).filter(child => {
-    //             return child.className === 'track-input'
-    //         })
-    //         for (let x = 0, y = 1; x < songs.length; x+2, y+2) {
-    //             let song = Object.assign({}, {title: songs[x].value, runtime: songs[y].value})
-    //             albumdata.album.songs_attributes.push(song)
-    //             }
-    //         debugger
-    //         let object = {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'accept': 'application/json'
-    //             },
-    //             body: JSON.stringify(albumdata)
-    //         }
-    //         debugger
-    //         fetch(url, object)
-    //         .then(res => res.json())
-    //         .then(album => {
-    //             // debugger
-    //             let alb = new Album(album.id, album.name, album.artist.name, album.genre.name, album.img_url, album.songs)
-    //             App.albums.push(alb)
-    //             App.renderAlbum(alb)
-    //             App.renderSongs(alb)
-    //         })
-    //         e.preventDefault();
-    //     })
-    // }
-
-
-    // getAlbums = () => {
-    //     // debugger
-    //     fetch(this.albumsURL)
-    //     .then(res => res.json())
-    //     .then(json =>  {
-    //         json.forEach(album => {
-    //             let alb = new Album(album.id, album.name, album.artist.name, album.genre.name, album.img_url, album.songs)
-    //             App.albums.push(alb)
-    //         })
-    //         App.albums.forEach(album => {
-    //             App.renderAlbum(album)
-    //             App.renderSongs(album)
-    //         })
-    //     }
-    //     )
-    //     .catch(err => alert(err))
-    // }
-
-    // getGenres = () => {
-    //     fetch(this.genresURL)
-    //     .then(res => res.json())
-    //     .then(json => json.forEach(genre => {
-    //         let newGen = new Genre(genre.id, genre.name);
-    //         this.genres.push(newGen);
-    //         this.applyGenre(newGen)
-    //     }))
-    // }
-
-    // applyGenre = (genre) => {
-    //     // debugger
-    //     let genSelect = document.getElementById('genre_id')
-    //     let html = `<option value="${genre.id}">${genre.name}</option>`
-    //     genSelect.innerHTML += html
-    // }
-
-    // renderAlbum = (album) => {
-    //     let html = `<span class="alb-name">${album.name} | ${album.genre}</span>
-    //     <div class="img-container">
-    //         <img src="${album.imgURL}">
-    //     </div>
-    //     <span class="alb-artist">${album.artist}</span>
-    //         `
-    //     let divCard = document.createElement('div')
-    //     divCard.setAttribute('data-album-id', album.id)
-    //     divCard.setAttribute('class', 'album-card')
-    //     divCard.innerHTML += html
-    //     // debugger
-    //     App.flexContainer.appendChild(divCard)
-    // }
 
     // static renderSongs = (album) => {
     //     let songsDiv = document.createElement('div')
