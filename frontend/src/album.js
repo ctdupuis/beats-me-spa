@@ -7,7 +7,10 @@ class Album {
         this.imgURL = imgURL
         this.songs = []
         songs.forEach(song => this.songs.push(song))
-    }   
+        this.constructor.all.push(this)
+    } 
+    
+    static all = []
 
     makeCard = (parentElement) => {
         let html = `

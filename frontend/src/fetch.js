@@ -1,9 +1,34 @@
 class Fetch {
-    constructor(url) {
-        this.url = url
+    constructor() {
+        this.url = 'http://localhost:3000'
+        this.albumPath = `${this.url}/albums`
+        this.loginPath = `${this.url}/login`
+        this.albums = []
+        this.headerObj = {
+            "Content-Type": "application/json",
+            "accept": "application/json"
+        }
     }
 
-    static get(url) {
-        return fetch(this.url).then( r => r.json())
+    getAlbums = function(){
+        return fetch(this.albumPath)
+        .then(r => r.json())
+        // .then(j => this.storeAlbums(j))
+        // .catch(e => console.log(e))
+    }
+
+    returnAlbums = (albums) => {
+        debugger
+    }
+    
+
+    static albums() {
+
+    }
+
+    static destroy(url) {
+
     }
 }
+
+

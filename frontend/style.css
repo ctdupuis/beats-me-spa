@@ -16,6 +16,8 @@ body {
     margin: 10px;
     padding: 20px;
     border-radius: 5px;
+    display: flex;
+    overflow-y: scroll;
 }
 
 .album-card {
@@ -25,8 +27,13 @@ body {
 }
 
 .flex-container {
-    display: flex;
-    overflow: auto;
+    display: list;
+    overflow-y: scroll;
+}
+
+.left-side {
+    display: list;
+    background-color: black;
 }
 
 .img-container {

@@ -1,8 +1,9 @@
 class App {
     constructor(baseURL){
+        this.go = new Fetch
         this.baseURL = baseURL
-        this.albums = []
-        this.albumsURL = `${baseURL}/albums`
+        this.albumsURL = `${this.go.url}/albums`
+        // debugger
         this.newAlbumForm = document.querySelector('form#new-album')
         this.newAlb = false
         this.flexContainer = document.querySelector('div.flex-container')
@@ -12,18 +13,21 @@ class App {
         this.newAlbumForm.addEventListener("submit", this.postAlbum)
         this.formBtn.addEventListener("click", this.displayForm)
         this.headerObj = {
-            "Content-Type": "application/json",
-            "accept": "application/json"
+            'Content-Type': 'application/json',
+            'accept': 'application/json'
         }
+       
     }
 
     renderAlbums = () => {
+        // debugger
         fetch(this.albumsURL)
         .then(r => r.json())
         .then(json => { 
             json.forEach(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
-            album.makeCard(this.flexContainer)
+            debugger
+            this.makeCard(this.flexContainer, album)
             // debugger
             // let btn = document.querySelector(`[data-del-id='${alb.id}']`)
             // debugger
@@ -39,7 +43,30 @@ class App {
             })
         }) 
         })
-        .catch(err => alert(err))
+        .catch(err => console.log(err))
+    }
+
+    makeCard = (parentElement, album) => {
+        let html = `
+        <div class="album-card" data-alb-id="${album.id}">
+            <span class="alb-name">${album.name} | ${album.genre}</span>
+            <div class="img-container">
+            <img src="${album.imgURL}">
+            </div>
+            <span class="alb-artist">${album.artist}</span>
+            <button class="delete" data-del-id="${album.id}">Delete</button>
+        </div> `
+        parentElement.innerHTML += html
+        let songsDiv = document.createElement('div')
+        songsDiv.setAttribute('class', 'tracklist-container')
+        for (let i = 0; i < album.songs.length; i++) {
+            songsDiv.innerHTML += `
+            <div class="song-container">
+            <div class="song-title">${i + 1}. ${album.songs[i].title} <div>${album.songs[i].runtime}</div></div>
+            </div>
+            `
+        }
+        document.querySelector(`[data-alb-id='${album.id}']`).appendChild(songsDiv)
     }
 
     displayForm = () => {
@@ -52,6 +79,7 @@ class App {
     }
 
     postAlbum = (event) => {
+        debugger
         let albumdata = {
             album: { 
                 name: event.target.children["album-name"].value,
@@ -74,14 +102,16 @@ class App {
         }
         let object = {
             method: 'POST',
-            headers: this.headerObj,
+            headers: this.go.headerObj,
             body: JSON.stringify(albumdata)
         }
+        debugger
         fetch(this.albumsURL, object)
         .then(res => res.json())
         .then(alb => {
+            debugger
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
-            album.makeCard(this.flexContainer)  
+            this.makeCard(this.flexContainer, album)  
             debugger
             // document.querySelector(`[data-del-id='${album.id}']`)
         })
@@ -99,7 +129,8 @@ class App {
         }
         debugger
         fetch(`${url}/${albumID}`, object)
-        .then(r => r.json())
+        .then(r => r)
+        .then(alert('Album deleted'))
         let divCard = document.querySelector(`[data-alb-id='${albumID}']`)
         divCard.remove()
     }
