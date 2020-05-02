@@ -3,7 +3,6 @@ class App {
         this.go = new Fetch
         this.baseURL = baseURL
         this.albumsURL = `${this.go.url}/albums`
-        // debugger
         this.newAlbumForm = document.querySelector('form#new-album')
         this.newAlb = false
         this.flexContainer = document.querySelector('div.flex-container')
@@ -16,32 +15,19 @@ class App {
             'Content-Type': 'application/json',
             'accept': 'application/json'
         }
+        // document.addEventListener("DOMContentLoaded" )
        
     }
 
     renderAlbums = () => {
-        // debugger
         fetch(this.albumsURL)
         .then(r => r.json())
         .then(json => { 
             json.forEach(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
-            debugger
             this.makeCard(this.flexContainer, album)
-            // debugger
-            // let btn = document.querySelector(`[data-del-id='${alb.id}']`)
-            // debugger
-            // btn.addEventListener('click',  () => { 
-            //     debugger
-            //     this.deleteAlbum(album) 
-            // })
+            this.addListeners()
         })
-        document.querySelectorAll('button.delete').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                this.deleteAlbum(e.target.dataset.delId, this.albumsURL)
-                // debugger
-            })
-        }) 
         })
         .catch(err => console.log(err))
     }
@@ -79,7 +65,6 @@ class App {
     }
 
     postAlbum = (event) => {
-        debugger
         let albumdata = {
             album: { 
                 name: event.target.children["album-name"].value,
@@ -105,15 +90,12 @@ class App {
             headers: this.go.headerObj,
             body: JSON.stringify(albumdata)
         }
-        debugger
         fetch(this.albumsURL, object)
         .then(res => res.json())
         .then(alb => {
-            debugger
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
-            this.makeCard(this.flexContainer, album)  
-            debugger
-            // document.querySelector(`[data-del-id='${album.id}']`)
+            this.makeCard(this.flexContainer, album) 
+            this.addListeners() 
         })
         event.preventDefault();
         this.newAlbumForm.style.display = "none"
@@ -127,7 +109,6 @@ class App {
                 'Accept': 'applicaiton/json'
             }
         }
-        debugger
         fetch(`${url}/${albumID}`, object)
         .then(r => r)
         .then(alert('Album deleted'))
@@ -152,15 +133,20 @@ class App {
         document.getElementById('ep-info').addEventListener('click', function(e) {
             alert("An Extended Play is normally anywhere from 3-5 songs in length")
         })
+
         document.getElementById('lp-info').addEventListener('click', function(e) {
             alert("A Long Playing album is normally at least 6 songs in length")
         })
+        let delBtns = document.querySelectorAll('button.delete')
+        delBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                this.deleteAlbum(e.target.dataset.delId, this.albumsURL)
+            })
+        }) 
     }
 
     start = () => {
-        this.renderAlbums()
-        // debugger
-        this.addListeners()
+        this.renderAlbums()        
     }
 
 }

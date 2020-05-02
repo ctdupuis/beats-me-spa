@@ -1,5 +1,5 @@
 body {
-    background-color: grey;
+    background-color: black;
 }
 
 .header {
@@ -9,11 +9,13 @@ body {
     border-left: 14px;
     padding-left: 2px;
     height: auto;
+    width: auto;
+    margin-top: auto;
 }
 
 .wrapper {
     background-color: rgb(41, 41, 41);
-    margin: 10px;
+    margin: auto;
     padding: 20px;
     border-radius: 5px;
     display: flex;
@@ -24,6 +26,7 @@ body {
     background-color: purple;
     border: 25px;
     margin: 25px;
+    border-radius: 5px;
 }
 
 .flex-container {
@@ -37,8 +40,8 @@ body {
 }
 
 .img-container {
-    height: 100px;
-    width: 100px;
+    height: 25%;
+    width: 25%;
     padding: 20px;
     border: 20px;
 }
