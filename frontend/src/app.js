@@ -84,13 +84,7 @@ class App {
             albumdata.album.songs_attributes.push(songObj)
             x += 2
         }
-        let object = {
-            method: 'POST',
-            headers: this.headerObj,
-            body: JSON.stringify(albumdata)
-        }
-        fetch(this.albumsURL, object)
-        .then(res => res.json())
+        new Fetch(this.albumsURL, 'POST', albumdata).postAlbum()
         .then(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
             this.makeCard(this.flexContainer, album) 

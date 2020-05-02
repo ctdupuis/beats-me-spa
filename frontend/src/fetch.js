@@ -1,6 +1,12 @@
 class Fetch {
-    constructor(url) {
+    constructor(url, method=null, data=null) {
         this.url = url
+        this.headerObj = {
+            "Content-Type": "application/json",
+            "accept": "application/json"
+        }
+        this.method = method
+        this.data = data
       }
 
     getAlbums = function() {
@@ -10,7 +16,13 @@ class Fetch {
         // .catch(e => console.log(e))
     }
 
-    returnAlbums = (albums) => {
+    postAlbum = function() {
+        return fetch(this.url, {
+            method: this.method,
+            headers: this.headerObj,
+            body: JSON.stringify(this.data)
+        })
+        .then(r => r.json())
         debugger
     }
     
