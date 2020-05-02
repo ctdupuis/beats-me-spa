@@ -9,12 +9,9 @@ class App {
         this.formBtn = document.getElementById('form-btn')
         this.inputs = document.querySelectorAll('input.track-input')
         this.radios = document.getElementsByClassName('radio')
+        this._session = {}
         this.newAlbumForm.addEventListener("submit", this.postData)
         this.formBtn.addEventListener("click", this.displayForm)
-        this.headerObj = {
-            'Content-Type': 'application/json',
-            'accept': 'application/json'
-        }
         // document.addEventListener("DOMContentLoaded" )
        
     }
@@ -71,7 +68,7 @@ class App {
             this.makeCard(this.flexContainer, album) 
             this.addListeners() 
         })
-        event.preventDefault();
+        e.preventDefault();
         this.newAlbumForm.style.display = "none"
     }
 
