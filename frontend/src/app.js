@@ -1,8 +1,8 @@
 class App {
-    constructor(baseURL){
-        this.go = new Fetch
-        this.baseURL = baseURL
-        this.albumsURL = `${this.go.url}/albums`
+    constructor(){
+        // this.go = new Fetch
+        // this.baseURL = baseURL
+        this.albumsURL = `http://localhost:3000/albums`
         this.newAlbumForm = document.querySelector('form#new-album')
         this.newAlb = false
         this.flexContainer = document.querySelector('div.flex-container')
@@ -20,8 +20,7 @@ class App {
     }
 
     renderAlbums = () => {
-        fetch(this.albumsURL)
-        .then(r => r.json())
+        new Fetch(this.albumsURL).getAlbums()
         .then(json => { 
             json.forEach(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
@@ -87,7 +86,7 @@ class App {
         }
         let object = {
             method: 'POST',
-            headers: this.go.headerObj,
+            headers: this.headerObj,
             body: JSON.stringify(albumdata)
         }
         fetch(this.albumsURL, object)
