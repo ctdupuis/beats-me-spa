@@ -7,28 +7,30 @@ class Fetch {
         }
         this.method = method
         this.data = data
-      }
-
-    getAlbums = function() {
-        return fetch(this.url)
-        .then(r => r.json())
-        // .then(j => this.storeAlbums(j))
-        // .catch(e => console.log(e))
+        this.configObject = {
+            method: method,
+            headers: {
+                "Content-Type": "application/json",
+                "accept": "application/json"  
+            },
+            body: JSON.stringify(data)
+        }
     }
 
-    postAlbum = function() {
-        return fetch(this.url, {
-            method: this.method,
-            headers: this.headerObj,
-            body: JSON.stringify(this.data)
-        })
+    get = function() {
+        return fetch(this.url)
         .then(r => r.json())
-        debugger
+    }
+
+    post = function() {
+        return fetch(this.url, this.configObject)
+        .then(r => r.json())
     }
     
 
-    static albums() {
-
+    delete = function(event) {
+        return fetch(`${this.url}/${event.target.dataset.delId}`, this.configObject)
+        .then(r => r.json())
     }
 
     static destroy(url) {

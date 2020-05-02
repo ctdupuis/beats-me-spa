@@ -17,8 +17,13 @@ class AlbumsController < ApplicationController
 
     def destroy
         album = Album.find(params[:id])
-        album.songs.destroy
-        album.destroy
+        if album 
+            album.songs.destroy
+            album.destroy
+            render json: {status: 200}
+        else
+            render json: {status: 404, redirected: true, ok: false}
+        end
     end
 
     private

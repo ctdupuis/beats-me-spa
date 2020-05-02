@@ -9,7 +9,7 @@ class App {
         this.formBtn = document.getElementById('form-btn')
         this.inputs = document.querySelectorAll('input.track-input')
         this.radios = document.getElementsByClassName('radio')
-        this.newAlbumForm.addEventListener("submit", this.postAlbum)
+        this.newAlbumForm.addEventListener("submit", this.postData)
         this.formBtn.addEventListener("click", this.displayForm)
         this.headerObj = {
             'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ class App {
     }
 
     renderAlbums = () => {
-        new Fetch(this.albumsURL).getAlbums()
+        new Fetch(this.albumsURL).get()
         .then(json => { 
             json.forEach(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
@@ -63,8 +63,20 @@ class App {
         }
     }
 
-    postAlbum = (event) => {
-        let albumdata = {
+    postData = (e) => {
+        let albumdata = this.setupAlbObj(e)
+        new Fetch(this.albumsURL, 'POST', albumdata).post()
+        .then(alb => {
+            let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
+            this.makeCard(this.flexContainer, album) 
+            this.addListeners() 
+        })
+        event.preventDefault();
+        this.newAlbumForm.style.display = "none"
+    }
+
+    setupAlbObj = (event) => {
+        let data = {
             album: { 
                 name: event.target.children["album-name"].value,
                 artist_name: event.target.children["artist-name"].value,
@@ -81,36 +93,19 @@ class App {
         let x = 0
         while (songs[x] !== undefined) {
             let songObj = Object.assign({}, {title: songs[x].value, runtime: songs[x+1].value});
-            albumdata.album.songs_attributes.push(songObj)
+            if (songObj.title === "" && songObj.runtime === "") {
+                break;
+            } else {
+            debugger
+            data.album.songs_attributes.push(songObj)
             x += 2
-        }
-        new Fetch(this.albumsURL, 'POST', albumdata).postAlbum()
-        .then(alb => {
-            let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
-            this.makeCard(this.flexContainer, album) 
-            this.addListeners() 
-        })
-        event.preventDefault();
-        this.newAlbumForm.style.display = "none"
-    }
-
-    deleteAlbum = (albumID, url) => {
-        let object = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'applicaiton/json'
             }
         }
-        fetch(`${url}/${albumID}`, object)
-        .then(r => r)
-        .then(alert('Album deleted'))
-        let divCard = document.querySelector(`[data-alb-id='${albumID}']`)
-        divCard.remove()
+        return data
     }
 
     addListeners = () => {
-        // adds listeners to buttons
+        // adds listeners to radio buttons to generate form fields
         for (let i = 0; i < this.radios.length; i++) {
             this.radios[i].addEventListener('click', function(e){
                 let inputs = document.querySelectorAll('input.track-input')
@@ -133,7 +128,9 @@ class App {
         let delBtns = document.querySelectorAll('button.delete')
         delBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                this.deleteAlbum(e.target.dataset.delId, this.albumsURL)
+                new Fetch(this.albumsURL, 'DELETE').delete(e)
+                alert("Success!")
+                e.target.parentElement.remove()
             })
         }) 
     }
