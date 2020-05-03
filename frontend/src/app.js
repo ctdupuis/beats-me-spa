@@ -60,7 +60,7 @@ class App {
 
     postData = (e) => {
         // let albumdata = this.setupAlbObj(e)
-        new Fetch(this.albumsURL, 'POST', e).post()
+        new Fetch(this.albumsURL, e).post()
         .then(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
             this.makeCard(this.flexContainer, album) 
@@ -74,8 +74,11 @@ class App {
         // adds listeners to radio buttons to generate form fields
         for (let i = 0; i < this.radios.length; i++) {
             this.radios[i].addEventListener('click', function(e){
+                // grab the inputs
                 let inputs = document.querySelectorAll('input.track-input')
+                // two inputs per son
                 let target = Number(e.target.value * 2)
+                // generate fields based on radio value, hide the rest if user switches radio option
                 for(let j = 0; j < target; j++) {
                     inputs[j].style.display = "flex"
                 }
@@ -94,7 +97,7 @@ class App {
         let delBtns = document.querySelectorAll('button.delete')
         delBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                new Fetch(this.albumsURL, 'DELETE').delete(e)
+                new Fetch(this.albumsURL, e).delete()
                 alert("Album Deleted")
                 e.target.parentElement.remove()
             })

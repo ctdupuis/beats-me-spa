@@ -1,13 +1,7 @@
 class Fetch {
-    constructor(url, method=null, event) {
+    constructor(url, event) {
         this.url = url
-        this.headerObj = {
-            "Content-Type": "application/json",
-            "accept": "application/json"
-        }
-        this.method = method
         this.configObject = {
-            method: method,
             headers: {
                 "Content-Type": "application/json",
                 "accept": "application/json"  
@@ -51,14 +45,16 @@ class Fetch {
 
     post = function() {
         let albumdata = this.setupAlbObj(this.event)
+        this.configObject.method = "POST"
         this.configObject.body = JSON.stringify(albumdata)
         return fetch(this.url, this.configObject)
         .then(r => r.json())
     }
     
 
-    delete = function(event) {
-        return fetch(`${this.url}/${event.target.dataset.delId}`, this.configObject)
+    delete = function() {
+        this.configObject.method = "DELETE"
+        return fetch(`${this.url}/${this.event.target.dataset.delId}`, this.configObject)
         .then(r => r.json())
     }
 
