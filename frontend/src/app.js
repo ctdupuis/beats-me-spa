@@ -29,7 +29,7 @@ class App {
     makeCard = (parentElement, album) => {
         let html = `
         <div class="album-card" data-alb-id="${album.id}">
-            <span class="alb-name">${album.name} | ${album.genre}</span>
+            <span class="alb-name">${album.name}</span><span class="album-genre">${album.genre}</span>
             <div class="img-container">
             <img src="${album.imgURL}">
             </div>
@@ -42,7 +42,7 @@ class App {
         for (let i = 0; i < album.songs.length; i++) {
             songsDiv.innerHTML += `
             <div class="song-container">
-            <div class="song-title">${i + 1}. ${album.songs[i].title} <div>${album.songs[i].runtime}</div></div>
+            <div class="song-title">${i + 1}. ${album.songs[i].title}</div><div class="song-runtime">${album.songs[i].runtime}</div>
             </div>
             `
         }
@@ -53,8 +53,9 @@ class App {
         this.newAlb = !this.newAlb
         if (this.newAlb){
             this.newAlbumForm.style.display = 'block'
+            this.formBtn.style.display = 'none'
         } else {
-            this.newAlbumForm.style.dispay = 'none'
+            this.newAlbumForm.style.display = 'none'
         }
     }
 

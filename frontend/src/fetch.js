@@ -47,6 +47,7 @@ class Fetch {
         let albumdata = this.setupAlbObj(this.event)
         this.configObject.method = "POST"
         this.configObject.body = JSON.stringify(albumdata)
+        // this.configObject.credentials = "include"
         return fetch(this.url, this.configObject)
         .then(r => r.json())
     }

@@ -10,7 +10,6 @@ class SongsController < ApplicationController
     def create
         album = Album.find_or_create_by(name: song_params[:album_name])
         song = album.songs.build(song_params)
-        binding.pry
     end
 
     def add
@@ -29,7 +28,7 @@ class SongsController < ApplicationController
 
     def index
         songs = Song.all
-        render json: SongSerializer.new(songs).to_serialized_json
+        render json: cookies
     end
 
     def edit
