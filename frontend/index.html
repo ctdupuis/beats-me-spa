@@ -35,16 +35,19 @@
         <div class='form-container'>
             <button id="form-btn">New Submission</button>
             <form id='new-album' action="/albums" method="POST" style="display: none;">
-                Single<input type='radio' class='radio' name='alb-type' value='1'>
-                EP<input type='radio' class='radio' name='alb-type' value='5'><button id='ep-info'>?</button>
-                LP<input type='radio' class='radio' name='alb-type' value='12'><button id='lp-info'>?</button>
+                <label for='alb-type'>Single</label>
+                <input type='radio' class='radio' name='alb-type' value='1'>
+                <label for='alb-type'>EP</label>
+                <input type='radio' class='radio' name='alb-type' value='5'><button id='ep-info'>?</button>
+                <label for='alb-type'>LP</label>
+                <input type='radio' class='radio' name='alb-type' value='12'><button id='lp-info'>?</button>
+                <br>
                 <label for='album-name'>Album Name</label>
                 <input type='text' name='album-name' value="WELCOME HOME"><br>
                 <label for='artist-name'>Artist</label>
                 <input type='text' name='artist-name' value="Aries">
                 <br>
                 <label for='album-genre'>Genre</label>
-                <br>
                 <select id='genre'>
                     <option value="Hip Hop">Hip Hop</option>
                     <option value="Rap">Rap</option>

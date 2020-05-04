@@ -19,7 +19,7 @@ body {
     width: 100%;
     top: 0;
     border-bottom: 1px solid var(--blue);
-    opacity: 90%;
+    opacity: 95%;
 }
 
 .header h1 {
@@ -142,4 +142,27 @@ span {
 button {
     background-color: var(--blue);
     color: whitesmoke;
+}
+
+#new-album {
+    justify-content: center;
+}
+
+input {
+    background-color: black;
+    border-color: black;
+    color: var(--purp);
+    border-radius: 5px;
+    margin: 5px;
+}
+
+select {
+    background-color: black;
+    border-color: black;
+    color: var(--purp);
+    border-radius: 2px;
+}
+
+label {
+    color: var(--blue);
 }

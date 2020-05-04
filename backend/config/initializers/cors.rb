@@ -9,9 +9,8 @@
 #   allow do
 #     origins 'localhost:8000'
 
-#     resource '*',
+#     resource '/albums',
 #       headers: :any,
-#       methods: [:get, :post, :put, :patch, :delete, :options, :head],
-#       credentials: true
+#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
 #   end
 # end

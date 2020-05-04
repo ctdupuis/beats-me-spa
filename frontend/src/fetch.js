@@ -55,6 +55,7 @@ class Fetch {
 
     delete = function() {
         this.configObject.method = "DELETE"
+        debugger
         return fetch(`${this.url}/${this.event.target.dataset.delId}`, this.configObject)
         .then(r => r.json())
     }

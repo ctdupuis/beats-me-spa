@@ -18,12 +18,20 @@ class App {
         new Fetch(this.albumsURL).get()
         .then(json => { 
             json.forEach(alb => {
-            let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
-            this.makeCard(this.flexContainer, album)
-            this.addListeners()
-        })
+                let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
+                this.makeCard(this.flexContainer, album)
+            })
+            let delBtns = document.querySelectorAll('button.delete')
+            delBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    new Fetch(this.albumsURL, e).delete()
+                    alert("Album Deleted")
+                    e.target.parentElement.remove()
+                })
+            }) 
         })
         .catch(err => console.log(err))
+        
     }
 
     makeCard = (parentElement, album) => {
@@ -52,8 +60,7 @@ class App {
     displayForm = () => {
         this.newAlb = !this.newAlb
         if (this.newAlb){
-            this.newAlbumForm.style.display = 'block'
-            this.formBtn.style.display = 'none'
+            this.newAlbumForm.style.display = 'inline-block'
         } else {
             this.newAlbumForm.style.display = 'none'
         }
@@ -88,21 +95,13 @@ class App {
                 }
             })
         }
-        document.getElementById('ep-info').addEventListener('click', function(e) {
-            alert("An Extended Play is normally anywhere from 3-5 songs in length")
-        })
-
-        document.getElementById('lp-info').addEventListener('click', function(e) {
-            alert("A Long Playing album is normally at least 6 songs in length")
-        })
-        let delBtns = document.querySelectorAll('button.delete')
-        delBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                new Fetch(this.albumsURL, e).delete()
-                alert("Album Deleted")
-                e.target.parentElement.remove()
-            })
-        }) 
+        // document.getElementById('ep-info').addEventListener('click', function(e) {
+        //     alert("An Extended Play is normally anywhere from 3-5 songs in length")
+        // })
+        // document.getElementById('lp-info').addEventListener('click', function(e) {
+        //     alert("A Long Playing album is normally at least 6 songs in length")
+        // })
+        // debugger
     }
 
     start = () => {
