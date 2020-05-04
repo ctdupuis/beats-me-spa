@@ -31,7 +31,6 @@ class App {
             }) 
         })
         .catch(err => console.log(err))
-        
     }
 
     makeCard = (parentElement, album) => {
@@ -72,7 +71,10 @@ class App {
         .then(alb => {
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
             this.makeCard(this.flexContainer, album) 
-            this.addListeners() 
+            document.querySelector(`[data-del-id='${album.id}']`).addEventListener('click', (e) => {
+                new Fetch(this.albumsURL, e).delete()
+                e.target.parentElement.remove()
+            })
         })
         e.preventDefault();
         this.newAlbumForm.style.display = "none"
