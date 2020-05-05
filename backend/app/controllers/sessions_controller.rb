@@ -1,44 +1,44 @@
 class SessionsController < ApplicationController
-    include CurrentUserConcern
+    # include CurrentUserConcern
 
-    def new
-        binding.pry
-        user = User.create!(user_params)
+    # def new
+    #     binding.pry
+    #     user = User.create!(user_params)
 
-        if user
-            session[:user_id] = user.id
-            render json: { 
-                status: :created, 
-                user: user 
-            }
-        else
-            render json: { status: 500 }
-        end
-    end
+    #     if user
+    #         session[:user_id] = user.id
+    #         render json: { 
+    #             status: :created, 
+    #             user: user 
+    #         }
+    #     else
+    #         render json: { status: 500 }
+    #     end
+    # end
 
-    def logged_in
-        if @current_user
-            render json: {
-                logged_in: true,
-                user: @current_user
-            }
-        else
-            render json: { logged_in: false }
-        end
-    end
+    # def logged_in
+    #     if @current_user
+    #         render json: {
+    #             logged_in: true,
+    #             user: @current_user
+    #         }
+    #     else
+    #         render json: { logged_in: false }
+    #     end
+    # end
 
-    def create
+    # def create
 
-    end
+    # end
 
-    def logout
-        reset_session
-        render json: { status: 200 }
-    end
+    # def logout
+    #     reset_session
+    #     render json: { status: 200 }
+    # end
 
-    private
+    # private
 
-    def user_params
-        params.require(:user).permit(:username, :password)
-    end
+    # def user_params
+    #     params.require(:user).permit(:username, :password)
+    # end
 end
