@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :albums do 
     resources :songs
   end
-
+  root to: "home#index"
   get '/songs' => 'songs#index'
   get '/genres' => 'genres#index'
   post '/signup' => 'sessions#new'
@@ -10,5 +11,16 @@ Rails.application.routes.draw do
   get '/logged_in' => 'sessions#logged_in'
   get '/logout' => 'sessions#destroy'
   resources :artists
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  devise_for :users,
+            path: ' ',
+            path_names: {
+              sign_in: 'login',
+              sign_out: 'logout',
+              registration: 'signup'
+            },
+            controllers: {
+              sessions: 'sessions',
+              registrations: 'registrations'
+            }
 end
