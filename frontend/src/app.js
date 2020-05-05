@@ -38,7 +38,8 @@ class App {
     }
 
     register = (e) => {
-        new Fetch(this.signupPath, e).signup();
+        new Fetch(this.signupPath, e).signup()
+        .then(json => this._session.push(json));
         event.preventDefault();
         debugger
     }

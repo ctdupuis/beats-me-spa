@@ -5,8 +5,9 @@ class Fetch {
             headers: {
                 "Content-Type": "application/json",
                 "accept": "application/json",
-                authenticity_token: document.cookie.split('=')[1]
-            }
+                "X-CSRF-Token": this.getCookie('CSRF_TOKEN')
+            },
+            credentials: 'include'
         }
         this.event = event
         debugger
@@ -57,7 +58,6 @@ class Fetch {
         let albumdata = this.setupAlbObj(this.event)
         this.configObject.method = "POST"
         this.configObject.body = JSON.stringify(albumdata)
-        // this.configObject.credentials = "include"
         return fetch(this.url, this.configObject)
         .then(r => r.json())
     }
@@ -88,14 +88,19 @@ class Fetch {
 
     signup = function() {
         let userdata = this.setupUserObj(this.event)
+        this.configObject.method = "POST"
+        this.configObject.body = JSON.stringify(userdata)
         debugger
+        return fetch(this.url, this.configObject)
+        .then(r => r.json())
     }
 
     setupUserObj = (event) => {
         debugger
-        let data = { user: {
-            username: event.target.children['username'].value,
-            password: event.target.children['password'].value
+        let data = { 
+            user: {
+                username: event.target.children['username'].value,
+                password: event.target.children['password'].value
             }
         }
         return data
