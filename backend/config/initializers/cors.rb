@@ -7,7 +7,11 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
+<<<<<<< HEAD
     origins "localhost:8000"
+=======
+    origins "localhost:8000", "file:///Users/codydupuis/Development/code/beats-me-spa/frontend/index.html"
+>>>>>>> 5ebc1b4b8731670b9afcef1ac152584e268bc9c0
 
     resource '*',
       headers: :any,
