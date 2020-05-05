@@ -65,6 +65,8 @@ def make_seeds(track_hash, album, artist, genre, img)
     end
 end
 
+user1 = User.create(username: 'Webhead', password: "milo")
+
 up_img = "https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Logic_Under_Pressure_9.10.14.jpg/220px-Logic_Under_Pressure_9.10.14.jpg"
 up_tracks = {
     :t1 => {:title => "Intro", :runtime => "3:02"},

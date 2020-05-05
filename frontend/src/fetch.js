@@ -4,15 +4,19 @@ class Fetch {
         this.configObject = {
             headers: {
                 "Content-Type": "application/json",
-                "accept": "application/json"  
+                "accept": "application/json",
             }
         }
         this.event = event
+        debugger
     }
 
     get = function() {
         return fetch(this.url)
-        .then(r => r.json())
+        .then(r => {
+            debugger
+            r.json()
+        })
     }
 
     setupAlbObj = (event) => {

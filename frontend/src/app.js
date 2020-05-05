@@ -1,7 +1,7 @@
 class App {
     constructor(){
         // this.baseURL = baseURL
-        this.albumsURL = `http://localhost:3000/albums`
+        this.albumsURL = "http://localhost:3000/albums"
         this.newAlbumForm = document.querySelector('form#new-album')
         this.newAlb = false
         this.flexContainer = document.querySelector('div.flex-container')
@@ -17,6 +17,7 @@ class App {
     renderAlbums = () => {
         new Fetch(this.albumsURL).get()
         .then(json => { 
+            // debugger
             json.forEach(alb => {
                 let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
                 this.makeCard(this.flexContainer, album)
