@@ -1,7 +1,8 @@
 class App {
     constructor(){
-        // this.baseURL = baseURL
-        this.albumsURL = "http://localhost:3000/albums"
+        this.baseURL = "http://localhost:3000"
+        this.albumsURL = `${this.baseURL}/albums`
+        this.signupPath = `${this.baseURL}/signup`
         this.newAlbumForm = document.querySelector('form#new-album')
         this.newAlb = false
         this.flexContainer = document.querySelector('div.flex-container')
@@ -9,6 +10,8 @@ class App {
         this.inputs = document.querySelectorAll('input.track-input')
         this.radios = document.getElementsByClassName('radio')
         this._session = {}
+        this.signup = document.getElementById('signup')
+        this.signup.addEventListener('submit', this.register)
         this.newAlbumForm.addEventListener("submit", this.postData)
         this.formBtn.addEventListener("click", this.displayForm)
        
@@ -32,6 +35,12 @@ class App {
             }) 
         })
         .catch(err => console.log(err))
+    }
+
+    register = (e) => {
+        new Fetch(this.signupPath, e).signup();
+        event.preventDefault();
+        debugger
     }
 
     makeCard = (parentElement, album) => {
