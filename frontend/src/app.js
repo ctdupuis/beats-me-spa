@@ -9,11 +9,8 @@ class App {
         this.formBtn = document.getElementById('form-btn')
         this.inputs = document.querySelectorAll('input.track-input')
         this.radios = document.getElementsByClassName('radio')
-        this._session = {}
-        this.signup = document.getElementById('signup')
-        this.signup.addEventListener('submit', this.register)
-        this.newAlbumForm.addEventListener("submit", this.postData)
-        this.formBtn.addEventListener("click", this.displayForm)
+        // this.newAlbumForm.addEventListener("submit", this.postData)
+        // this.formBtn.addEventListener("click", this.displayForm)
        
     }
 
@@ -106,7 +103,7 @@ class App {
                 let target = Number(e.target.value * 2)
                 // generate fields based on radio value, hide the rest if user switches radio option
                 for(let j = 0; j < target; j++) {
-                    inputs[j].style.display = "flex"
+                    inputs[j].style.display = "inline-block"
                 }
                 for (target; target < inputs.length; target++){
                     inputs[target].style.display = "none"
@@ -120,10 +117,13 @@ class App {
         //     alert("A Long Playing album is normally at least 6 songs in length")
         // })
         // debugger
+        this.newAlbumForm.addEventListener("submit", this.postData)
+        this.formBtn.addEventListener("click", this.displayForm)
     }
 
     start = () => {
-        this.renderAlbums()        
+        this.renderAlbums()   
+        this.addListeners()     
     }
 
 }
