@@ -1,26 +1,26 @@
 class SessionsController < ApplicationController
-    include CurrentUserConcern
+    # include CurrentUserConcern
 
     def new
-        binding.pry
         user = User.create!(user_params)
-
         if user
             session[:user_id] = user.id
-            render json: { 
-                status: :created, 
-                user: user 
-            }
+            binding.pry
+            render json: user, except: [:password_digest]
         else
-            render json: { status: 500 }
+            render json: { 
+                status: 500,
+                errors: "Somethin' ain't right"
+             }
         end
     end
 
     def logged_in
-        if @current_user
+        binding.pry
+        if current_user
             render json: {
                 logged_in: true,
-                user: @current_user
+                user: current_user
             }
         else
             render json: { logged_in: false }
@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
     end
 
     def logout
-        reset_session
+        session.clear
         render json: { status: 200 }
     end
 

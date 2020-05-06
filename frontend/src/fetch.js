@@ -19,6 +19,23 @@ class Fetch {
         return json
     }
 
+    signup = async function() {
+        let userdata = this.setupUserObj(this.event)
+        this.configObject.method = "POST"
+        this.configObject.body = JSON.stringify(userdata)
+        const response = await fetch(this.url, this.configObject);
+        const json = await response.json();
+        return json
+    }
+    
+    // signup = function() {
+    //     let userdata = this.setupUserObj(this.event)
+    //     this.configObject.method = "POST"
+    //     this.configObject.body = JSON.stringify(userdata)
+    //     debugger
+    //     return fetch(this.url, this.configObject)
+    //     .then(r => {debugger})
+    // }
     // static async get(url){
     //     const response = await fetch(url)
     //     const json = await response.json()
@@ -86,14 +103,6 @@ class Fetch {
         .then(r => r.json())
     }
 
-    signup = function() {
-        let userdata = this.setupUserObj(this.event)
-        this.configObject.method = "POST"
-        this.configObject.body = JSON.stringify(userdata)
-        debugger
-        return fetch(this.url, this.configObject)
-        .then(r => r.json())
-    }
 
     setupUserObj = (event) => {
         debugger
@@ -115,5 +124,3 @@ class Fetch {
     }
 }
 
-// let token = "CSRF_TOKEN=yWKGp4zqOIzE%2FU4aJ%2FkIq8JRWchLfemsCNm2gIJWOI5NEDPWg6tq8Itw6sXz6PGH4d6GEHEcXRMtZW0sL8pQaA%3D%3D"
-console.log(document.cookie)

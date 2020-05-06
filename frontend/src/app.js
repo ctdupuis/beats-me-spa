@@ -39,7 +39,13 @@ class App {
 
     register = (e) => {
         new Fetch(this.signupPath, e).signup()
-        .then(json => this._session.push(json));
+        .then(json => {
+            let user = new User(json.id, json.username)
+            localStorage.setItem('user_id', user.id)
+            localStorage.setItem('username', user.username)
+            console.log(json)
+            debugger
+        });
         event.preventDefault();
         debugger
     }
