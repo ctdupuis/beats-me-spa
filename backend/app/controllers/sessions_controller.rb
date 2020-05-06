@@ -32,7 +32,8 @@ class SessionsController < ApplicationController
     end
 
     def logout
-        binding.pry
+        # session[:user_id]
+        # binding.pry
         session.clear :user_id
         render json: { status: 200 }
     end

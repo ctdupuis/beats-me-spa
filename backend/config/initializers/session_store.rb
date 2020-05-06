@@ -1,1 +1,1 @@
-Rails.application.config.session_store :cookie_store, key: "session", domain: "localhost:8000"
+Rails.application.config.session_store :cookie_store, key: "_beats_me", domain: "http://localhost:8000"

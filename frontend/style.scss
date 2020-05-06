@@ -1,0 +1,204 @@
+:root {
+    --blue: rgb(67, 147, 218);
+    --purp: rgb(136, 58, 238);
+    --bla: rgb(41, 41, 41)
+}
+
+
+html {
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+.header {
+    height: 50px;
+    background: grey;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    border-bottom: 1px solid var(--blue);
+    opacity: 95%;
+}
+
+.header h1 {
+    color: var(--purp)
+}
+
+.wrapper {
+    background-color: rgb(41, 41, 41);
+    width: 100%;
+    padding: 2px;
+    margin-top: 100px;
+    display: list;
+    text-align: center;
+}
+
+.album-card {
+    background-color: var(--purp);
+    border: 25px;
+    margin: 25px;
+    border-radius: 5px;
+    align-items: center;
+    width: 75%;
+    height: auto;
+    display: inline-block;
+    border: 1px solid var(--blue);
+}
+
+.flex-container {
+    justify-content: center;
+    display: list;
+    width: 75%;
+}
+
+.form-container {
+    width: 75%;
+}
+
+.left-side {
+    display: list;
+    background-color: black;
+}
+
+.img-container {
+    height: auto;
+    width: 30%;
+    padding: 20px;
+    border: 20px;
+    margin: 0 auto;
+}
+
+.img-container  img {
+    height: auto;
+    width: 100%;
+    border: 5px;
+    border-radius: 5px;
+}
+
+.header {
+    display: flex;
+    background-color: rgb(41, 41, 41);
+    width: 100%;
+    border-left: 14px;
+    padding-left: 2px;
+    height: auto;
+}
+
+.title {
+    padding-left: 10px;
+}
+
+.navbar {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    padding-right: 5%;
+}
+
+div.tracklist-container {
+    overflow: scroll;
+    height: 15%;
+    width: auto;
+    border-radius: 5px;
+    border: 1px solid grey;
+}
+
+div.song-container {
+    background-color: black;
+    display: flex;
+    height: 20%;
+    border-top: 1px solid var(--bla);
+    padding: 5px;
+}
+
+div.song-container div.song-title {
+    display: flex;
+    overflow: auto;
+    color: var(--blue);
+}
+
+div.song-container div.song-runtime {
+    margin-left: auto;
+    color: var(--blue);
+}
+
+input.track-input {
+    display: none;
+}
+
+span {
+    padding: 10px;
+    color: whitesmoke;
+}
+
+.album-name {
+    float: left;
+}
+
+.album-genre {
+    float: right;
+}
+
+button {
+    background-color: var(--blue);
+    color: whitesmoke;
+}
+
+#new-album {
+    justify-content: center;
+}
+
+input {
+    background-color: black;
+    border-color: black;
+    color: var(--purp);
+    border-radius: 5px;
+    margin: 5px;
+}
+
+select {
+    background-color: black;
+    border-color: black;
+    color: var(--purp);
+    border-radius: 2px;
+}
+
+label {
+    color: var(--blue);
+}
+
+
+
+    .button {
+        display: flex;
+            padding: 10px;
+            background-color: darkgrey;
+            margin: 0 15px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            align-items: center;
+    }
+    .button div {
+        color: rgb(136, 58, 238); 
+        text-align: center;
+    }
+    .button:hover {
+                cursor: pointer;
+                background-color: whitesmoke;
+                transition: 0.2s ease;
+                div {
+                    color: rgb(67, 147, 218);
+                }
+            }
+    .button div:hover {
+        cursor: pointer;
+        background-color: whitesmoke;
+        transition: 0.2s ease;
+        color: rgb(67, 147, 218);
+       
+    }
+
+    

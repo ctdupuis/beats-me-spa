@@ -28,7 +28,8 @@ class SongsController < ApplicationController
 
     def index
         songs = Song.all
-        render json: cookies
+        session.clear
+        render json: {cookies: cookies, session: session} 
     end
 
     def edit
