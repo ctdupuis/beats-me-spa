@@ -124,3 +124,4 @@ class Fetch {
     }
 }
 
+console.log(document.cookie)

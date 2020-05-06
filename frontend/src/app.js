@@ -41,7 +41,6 @@ class App {
         new Fetch(this.signupPath, e).signup()
         .then(json => {
             let user = new User(json.id, json.username)
-            localStorage.setItem('user_id', user.id)
             localStorage.setItem('username', user.username)
             console.log(json)
             debugger

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
     include ActionController::Cookies
     include ActionController::RequestForgeryProtection
-    before_action :set_csrf_cookie
+    # before_action :set_csrf_cookie
     # skip_before_action :verify_authenticity_token
     helper_method :current_user
     helper_method :user_is_authenticated
@@ -18,8 +18,8 @@ class ApplicationController < ActionController::API
 
     private
 
-    def set_csrf_cookie
-        cookies["CSRF_TOKEN"] = form_authenticity_token
-    end
+    # def set_csrf_cookie
+    #     cookies["CSRF_TOKEN"] = form_authenticity_token
+    # end
 
 end
