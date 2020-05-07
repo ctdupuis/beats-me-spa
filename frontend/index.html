@@ -22,9 +22,19 @@
         <div class="wrapper">
 
             <form id='signup' action="/signup" method='post'>
+                <label for='username'>Username</label>
                 <input type='text' name='username'>
+                <label for='password'>Password</label>
                 <input type='password' name='password'>
-                <input type='submit'>
+                <input type='submit' value='Sign Up'>
+            </form>
+
+            <form id='login' action="/login" method='post'>
+                <label for='username'>Username</label>
+                <input type='text' name='username' value='webhead'>
+                <label for='password'>Password</label>
+                <input type='password' name='password' value='milo'>
+                <input type='submit' value='Log In'>
             </form>
             
 

@@ -69,8 +69,8 @@ def make_seeds(track_hash, album, artist, genre, img, user_id)
     end
 end
 
-user1 = User.create(username: 'Webhead', password: "milo")
-user2 = User.create(username: 'Moomoo', password: "coop")
+user1 = User.create(username: 'webhead', password: "milo")
+user2 = User.create(username: 'moomoo', password: "coop")
 
 up_img = "https://upload.wikimedia.org/wikipedia/en/thumb/d/df/Logic_Under_Pressure_9.10.14.jpg/220px-Logic_Under_Pressure_9.10.14.jpg"
 up_tracks = {

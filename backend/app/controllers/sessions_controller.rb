@@ -1,6 +1,4 @@
 class SessionsController < ApplicationController
-    # include CurrentUserConcern
-
 
     def new
         user = User.create!(user_params)
@@ -17,8 +15,8 @@ class SessionsController < ApplicationController
     end
 
     def create
-        user = User.find_by(username: params[:username])
-        if user && user.authenticate(params[:password])
+        user = User.find_by(username: params[:user][:username])
+        if user && user.authenticate(params[:user][:password])
             token = issue_token({jwt: user.id})
             render json: { jwt: token, user: user.username}
         else

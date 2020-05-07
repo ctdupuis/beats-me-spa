@@ -1,9 +1,7 @@
 class Session {
-    constructor(){
-        debugger
-        this.constructor.id = JSON.parse(localStorage.auth).jwt
-        this.constructor.current_user = JSON.parse(localStorage.auth).user
-        debugger
+    constructor(){ 
+        this.constructor.id = JSON.parse(localStorage.auth).jwt;
+        this.constructor.current_user = JSON.parse(localStorage.auth).user;
     }
 
     static get token(){

@@ -32,6 +32,15 @@ class Fetch {
         return json
     }
 
+    login = async function() {
+        let userdata = this.setupUserObj(this.event)
+        this.configObject.method = "POST"
+        this.configObject.body = JSON.stringify(userdata)
+        const response = await fetch(this.url, this.configObject);
+        const json = await response.json();
+        return json
+    }
+
     authorize = async function() {
         let token = JSON.parse(localStorage.getItem('auth'))
         this.configObject.headers.bearer = token
@@ -83,10 +92,7 @@ class Fetch {
         let albumdata = this.setupAlbObj(this.event)
         this.configObject.method = "POST"
         this.configObject.body = JSON.stringify(albumdata)
-        let token = JSON.parse(localStorage.getItem('auth'))
-        debugger
-        this.configObject.headers.bearer = Session.current
-        debugger
+        this.configObject.headers.bearer = Session.token
         return fetch(this.url, this.configObject)
         .then(r => r.json())
     }

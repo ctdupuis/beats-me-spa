@@ -3,6 +3,8 @@ class App {
         this.baseURL = "http://localhost:3000"
         this.albumsURL = `${this.baseURL}/albums`
         this.genrePath = `${this.baseURL}/genres`
+        this.signupPath = `${this.baseURL}/signup`
+        this.loginPath = `${this.baseURL}/login`
         this.newAlbumForm = document.querySelector('form#new-album')
         this.newAlb = false
         this.flexContainer = document.querySelector('div.flex-container')
@@ -10,22 +12,16 @@ class App {
         this.inputs = document.querySelectorAll('input.track-input')
         this.radios = document.getElementsByClassName('radio')
         this.genSelect = document.getElementById('genre')
-        document.getElementById('signup').addEventListener('submit', (e) => {
-            new Fetch(`${this.baseURL}/signup`, e).signup()
-            .then(r => {
-                localStorage.setItem('auth', JSON.stringify(r))
-                new Session
-                // JSON.parse(localStorage.getItem('auth'))
-            });
-            e.preventDefault();
-        })
+        this.signup = document.getElementById('signup')
+        this.login = document.getElementById('login')
     }
 
     renderAlbums = () => {
         new Fetch(this.albumsURL).get()
         .then(json => {            
             json.forEach(alb => {
-                let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
+                debugger
+                let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs, alb.user.username)
                 this.makeCard(this.flexContainer, album)
             })
             let delBtns = document.querySelectorAll('button.delete')
@@ -40,10 +36,10 @@ class App {
         .catch(err => console.log(err))
     }
 
-
     makeCard = (parentElement, album) => {
+        debugger
         let html = `
-        <div class="album-card" data-alb-id="${album.id}">
+        <div class="album-card" data-alb-id="${album.id}" data-user="${album.user}">
             <span class="alb-name">${album.name}</span><span class="album-genre">${album.genre}</span>
             <div class="img-container">
             <img src="${album.imgURL}">
@@ -81,11 +77,9 @@ class App {
         .then(alb => {
             
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
-            debugger
             this.makeCard(this.flexContainer, album) 
             
             let delBtns = document.querySelectorAll('button.delete')
-            debugger
             delBtns.forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     new Fetch(this.albumsURL, e).delete()
@@ -121,11 +115,35 @@ class App {
         new Fetch(this.genrePath).get().then(json => json.forEach(gen =>{
             this.genSelect.innerHTML += `<option value='${gen.name}'>${gen.name}</option>`
         }))
+        this.signup.addEventListener('submit', (e) => {
+            new Fetch(this.signupPath, e).signup()
+            .then(r => {
+                localStorage.setItem('auth', JSON.stringify(r))
+                new Session
+            });
+            e.preventDefault();
+        })
+        this.login.addEventListener('submit', (e) => {
+            new Fetch(this.loginPath, e).signup()
+            .then(r => {
+                localStorage.setItem('auth', JSON.stringify(r))
+                new Session
+            });
+            e.preventDefault();
+        })
+    }
+
+    activeSession = () => {
+        if (Session.token !== undefined) { 
+            return true 
+        } else {
+            return false
+        }
     }
 
     start = () => {
-        this.renderAlbums()   
-        this.addListeners()     
+        this.renderAlbums();
+        this.addListeners();
     }
 
 }
