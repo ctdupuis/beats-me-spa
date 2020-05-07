@@ -50,7 +50,6 @@ class Fetch {
     }
 
     setupUserObj = (event) => {
-        debugger
         let data = { 
             user: {
                 username: event.target.children['username'].value,

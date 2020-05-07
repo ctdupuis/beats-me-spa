@@ -20,7 +20,6 @@ class App {
         new Fetch(this.albumsURL).get()
         .then(json => {            
             json.forEach(alb => {
-                debugger
                 let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs, alb.user.username)
                 this.makeCard(this.flexContainer, album)
             })
@@ -37,7 +36,6 @@ class App {
     }
 
     makeCard = (parentElement, album) => {
-        debugger
         let html = `
         <div class="album-card" data-alb-id="${album.id}" data-user="${album.user}">
             <span class="alb-name">${album.name}</span><span class="album-genre">${album.genre}</span>
@@ -57,7 +55,9 @@ class App {
             </div>
             `
         }
-        document.querySelector(`[data-alb-id='${album.id}']`).appendChild(songsDiv)
+        let albCard = document.querySelector(`[data-alb-id='${album.id}']`)
+        albCard.appendChild(songsDiv)
+        this.checkOwnership(albCard)
     }
 
     displayForm = () => {
@@ -75,10 +75,8 @@ class App {
         // let albumdata = this.setupAlbObj(e)
         new Fetch(this.albumsURL, e).post()
         .then(alb => {
-            
             let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs)
             this.makeCard(this.flexContainer, album) 
-            
             let delBtns = document.querySelectorAll('button.delete')
             delBtns.forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -128,16 +126,17 @@ class App {
             .then(r => {
                 localStorage.setItem('auth', JSON.stringify(r))
                 new Session
+                document.querySelectorAll('div.album-card').forEach(card => this.checkOwnership(card))
             });
             e.preventDefault();
         })
     }
 
-    activeSession = () => {
-        if (Session.token !== undefined) { 
-            return true 
+    checkOwnership = (card) => {
+        if (card.dataset.user !== Session.user) {
+            card.children[4].style.display = 'none'
         } else {
-            return false
+            card.children[4].style.display = ''
         }
     }
 
