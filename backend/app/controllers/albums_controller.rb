@@ -6,6 +6,7 @@ class AlbumsController < ApplicationController
     end
 
     def create
+        binding.pry
         album = Album.create(album_params)
         render json: AlbumSerializer.new(album).to_serialized_json
     end

@@ -1,12 +1,13 @@
 class SessionsController < ApplicationController
     # include CurrentUserConcern
 
+
     def new
         user = User.create!(user_params)
         if user
-            session[:user_id] = user.id
+            token = issue_token({jwt: user.id})
             binding.pry
-            render json: user, except: [:password_digest]
+            render json: { jwt: token, user: user.username }
         else
             render json: { 
                 status: 500,
@@ -15,27 +16,17 @@ class SessionsController < ApplicationController
         end
     end
 
-    def logged_in
-        binding.pry
-        if current_user
-            render json: {
-                logged_in: true,
-                user: current_user
-            }
-        else
-            render json: { logged_in: false }
-        end
-    end
-
     def create
-
-    end
-
-    def logout
-        # session[:user_id]
-        # binding.pry
-        session.clear :user_id
-        render json: { status: 200 }
+        user = User.find_by(username: params[:username])
+        if user && user.authenticate(params[:password])
+            token = issue_token({jwt: user.id})
+            render json: { jwt: token, user: user.username}
+        else
+            render json: {
+                status: 500,
+                errors: "Invalid username/password combination. Please try again"
+            }
+        end
     end
 
     private
@@ -43,4 +34,5 @@ class SessionsController < ApplicationController
     def user_params
         params.require(:user).permit(:username, :password)
     end
+
 end

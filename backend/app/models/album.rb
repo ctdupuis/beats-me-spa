@@ -2,6 +2,7 @@ class Album < ApplicationRecord
     has_many :songs
     belongs_to :artist
     belongs_to :genre
+    belongs_to :user
 
     def artist_name 
         self.artist ? self.artist.name : nil

@@ -8,7 +8,6 @@ class Fetch {
             },
         }
         this.event = event
-        debugger
     }
 
     get = async function() {
@@ -17,29 +16,40 @@ class Fetch {
         return json
     }
 
-    // signup = async function() {
-    //     let userdata = this.setupUserObj(this.event)
-    //     this.configObject.method = "POST"
-    //     this.configObject.body = JSON.stringify(userdata)
-    //     const response = await fetch(this.url, this.configObject);
-    //     const json = await response.json();
-    //     return json
-    // }
-    
-    // signup = function() {
-    //     let userdata = this.setupUserObj(this.event)
-    //     this.configObject.method = "POST"
-    //     this.configObject.body = JSON.stringify(userdata)
-    //     debugger
-    //     return fetch(this.url, this.configObject)
-    //     .then(r => {debugger})
-    // }
     // static async get(url){
     //     const response = await fetch(url)
     //     const json = await response.json()
-    //     debugger
+
     //     return json
     // }
+
+    signup = async function() {
+        let userdata = this.setupUserObj(this.event)
+        this.configObject.method = "POST"
+        this.configObject.body = JSON.stringify(userdata)
+        const response = await fetch(this.url, this.configObject);
+        const json = await response.json();
+        return json
+    }
+
+    authorize = async function() {
+        let token = JSON.parse(localStorage.getItem('auth'))
+        this.configObject.headers.bearer = token
+        const response = await fetch(this.url, this.configObject);
+        const json = await response.json();
+        return json
+    }
+
+    setupUserObj = (event) => {
+        debugger
+        let data = { 
+            user: {
+                username: event.target.children['username'].value,
+                password: event.target.children['password'].value
+            }
+        }
+        return data
+    }
 
     setupAlbObj = (event) => {
         let data = {
@@ -73,51 +83,19 @@ class Fetch {
         let albumdata = this.setupAlbObj(this.event)
         this.configObject.method = "POST"
         this.configObject.body = JSON.stringify(albumdata)
+        let token = JSON.parse(localStorage.getItem('auth'))
+        debugger
+        this.configObject.headers.bearer = Session.current
+        debugger
         return fetch(this.url, this.configObject)
         .then(r => r.json())
     }
-
-    // getCookie(cname) {
-    //     const name = cname + "=";
-    //     const decodedCookie = decodeURIComponent(document.cookie);
-    //     const ca = decodedCookie.split(';');
-    //     for(let i = 0; i <ca.length; i++) {
-    //       let c = ca[i];
-    //       while (c.charAt(0) == ' ') {
-    //         c = c.substring(1);
-    //       }
-    //       if (c.indexOf(name) == 0) {
-    //         return c.substring(name.length, c.length);
-    //       }
-    //     }
-    //     return "";
-    //   }
     
 
     delete = function() {
         this.configObject.method = "DELETE"
-        debugger
         return fetch(`${this.url}/${this.event.target.dataset.delId}`, this.configObject)
         .then(r => r.json())
     }
 
-
-    // setupUserObj = (event) => {
-    //     debugger
-    //     let data = { 
-    //         user: {
-    //             username: event.target.children['username'].value,
-    //             password: event.target.children['password'].value
-    //         }
-    //     }
-    //     return data
-    // }
-
-    login = function(event) {
-
-    }
-
-    logout = function(event) {
-
-    }
 }
