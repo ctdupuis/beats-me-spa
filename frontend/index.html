@@ -15,28 +15,22 @@
     
     <div class="header">
         <div class="Title"><h1>BeatsME</h1></div>
-        <div class="navbar"></div>
+        <div class="navbar">
+            <!-- <button id='signup'>Sign Up</button>
+            <button id='login'>Log In</button> -->
+        </div>
     </div>
     
         
         <div class="wrapper">
 
-            <form id='signup' action="/signup" method='post'>
+            <!-- <form id='sesh' method='post' style='display: none;'>
                 <label for='username'>Username</label>
                 <input type='text' name='username'>
                 <label for='password'>Password</label>
                 <input type='password' name='password'>
-                <input type='submit' value='Sign Up'>
-            </form>
-
-            <form id='login' action="/login" method='post'>
-                <label for='username'>Username</label>
-                <input type='text' name='username' value='webhead'>
-                <label for='password'>Password</label>
-                <input type='password' name='password' value='milo'>
-                <input type='submit' value='Log In'>
-            </form>
-            
+                <input id='sesh-submit' type='submit'>
+            </form> -->
 
         <div class='form-container'>
             <button id="form-btn">New Submission</button>
@@ -49,9 +43,9 @@
                 <input type='radio' class='radio' name='alb-type' value='12'>
                 <br>
                 <label for='album-name'>Album Name</label>
-                <input type='text' name='album-name' value="WELCOME HOME"><br>
+                <input type='text' name='album-name'><br>
                 <label for='artist-name'>Artist</label>
-                <input type='text' name='artist-name' value="Aries">
+                <input type='text' name='artist-name'>
                 <br>
                 <label for='album-genre'>Genre</label>
                 <select id='genre'>
@@ -59,16 +53,16 @@
                 </select>
                 <br>
                 <label for='album-img'>Album Cover</label>
-                <input type="text" name='album-img' value="data:image/jpeg;base64,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">
+                <input type="text" name='album-img'>
                 <br><br>
                 <label id="tl-Title">Tracklist</label>
                 <br>
-                <input class="track-input" type='text' name='track-Title' value="BAD NEWS" placeholder='Track 1 Title' style="display: none;">
-                <input class="track-input" type='text' name='track-Runtime' value="2:44" placeholder='Track 1 Runtime' style="display: none;">
-                <input class="track-input" type='text' name='track-Title' value="SAYONARA" placeholder='Track 2 Title' style="display: none;">
-                <input class="track-input" type='text' name='track-Runtime' value="5:43" placeholder='Track 2 Runtime' style="display: none;">
-                <input class="track-input" type='text' name='track-Title' value="RACECAR" placeholder='Track 3 Title' style="display: none;">
-                <input class="track-input" type='text' name='track-Runtime' value="3:23" placeholder='Track 3 Runtime' style="display: none;">
+                <input class="track-input" type='text' name='track-Title' placeholder='Track 1 Title' style="display: none;">
+                <input class="track-input" type='text' name='track-Runtime' placeholder='Track 1 Runtime' style="display: none;">
+                <input class="track-input" type='text' name='track-Title' placeholder='Track 2 Title' style="display: none;">
+                <input class="track-input" type='text' name='track-Runtime' placeholder='Track 2 Runtime' style="display: none;">
+                <input class="track-input" type='text' name='track-Title' placeholder='Track 3 Title' style="display: none;">
+                <input class="track-input" type='text' name='track-Runtime' placeholder='Track 3 Runtime' style="display: none;">
                 <input class="track-input" type='text' name='track-Title' placeholder='Track 4 Title' style="display: none;">
                 <input class="track-input" type='text' name='track-Runtime' placeholder='Track 4 Runtime' style="display: none;">
                 <input class="track-input" type='text' name='track-Title' placeholder='Track 5 Title' style="display: none;">

@@ -1,5 +1,5 @@
 class Album {
-    constructor(id, name, artist, genre, imgURL, songs, user){
+    constructor(id, name, artist, genre, imgURL, songs){
         this.id = id
         this.name = name
         this.artist = artist
@@ -7,7 +7,6 @@ class Album {
         this.imgURL = imgURL
         this.songs = []
         songs.forEach(song => this.songs.push(song))
-        this.user = user
         this.constructor.all.push(this)
     } 
     

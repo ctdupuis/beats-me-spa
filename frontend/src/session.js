@@ -5,14 +5,14 @@ class Session {
     }
 
     static get token(){
-        return this.id
+        return this.id;
     }
 
     static get user(){
-        return this.current_user
+        return this.current_user;
     }
 
     static get clear(){
-        localStorage.clear()
+        localStorage.clear();
     }
 }

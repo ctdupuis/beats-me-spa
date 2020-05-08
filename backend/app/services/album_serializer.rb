@@ -15,9 +15,6 @@ class AlbumSerializer
                 },
                 songs: {
                     only: [:title, :runtime]
-                },
-                user: {
-                    only: [:username]
                 }
             },
             except: [:created_at, :updated_at],

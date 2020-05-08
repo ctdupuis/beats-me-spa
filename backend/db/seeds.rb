@@ -56,10 +56,10 @@ genres.each do |genre|
     Genre.create(name: genre)
 end
 
-def make_seeds(track_hash, album, artist, genre, img, user_id)
+def make_seeds(track_hash, album, artist, genre, img)
     genre = Genre.find_or_create_by(name: genre)
     artist = Artist.find_or_create_by(name: artist)
-    alb = Album.new(name: album, artist_id: artist.id, genre_id: genre.id, img_url: img, artist_name: artist.name, user_id: user_id)
+    alb = Album.new(name: album, artist_id: artist.id, genre_id: genre.id, img_url: img, artist_name: artist.name)
     track_hash.each do |k, v|
         song = Song.new(v)
         song.artist_id = artist.id 
@@ -140,9 +140,9 @@ concrete_tracks = {
     :t11 => {title: "Concrete and Gold", runtime: "5:31"}
 }
 
-make_seeds(up_tracks, "Under Pressure", "Logic", "Rap", up_img, user1.id)
-make_seeds(swimming_tracks, "Swimming", "Mac Miller", "Hip Hop", swimming_img, user1.id)
-make_seeds(hollywood_tracks, "Hollywood's Bleeding", "Post Malone", "Pop", hollywood_img, user2.id)
-make_seeds(concrete_tracks, "Concrete and Gold", "Foo Fighters", "Alternative", concrete_img, user2.id)
+make_seeds(up_tracks, "Under Pressure", "Logic", "Rap", up_img)
+make_seeds(swimming_tracks, "Swimming", "Mac Miller", "Hip Hop", swimming_img)
+make_seeds(hollywood_tracks, "Hollywood's Bleeding", "Post Malone", "Pop", hollywood_img)
+make_seeds(concrete_tracks, "Concrete and Gold", "Foo Fighters", "Alternative", concrete_img)
 
     

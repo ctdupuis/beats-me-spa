@@ -6,7 +6,7 @@ class AlbumsController < ApplicationController
 
     def create
         album = Album.new(album_params)
-        album.user_id = current_user(request.headers[:bearer]).id
+        # album.user_id = current_user(request.headers[:bearer]).id
         if album.save
             render json: AlbumSerializer.new(album).to_serialized_json
         else

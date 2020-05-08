@@ -16,48 +16,24 @@ class Fetch {
         return json
     }
 
-    // static async get(url){
-    //     const response = await fetch(url)
-    //     const json = await response.json()
-
+    // authenticate = async function() {
+    //     let userdata = this.setupUserObj(this.event)
+    //     this.configObject.method = "POST"
+    //     this.configObject.body = JSON.stringify(userdata)
+    //     const response = await fetch(this.url, this.configObject);
+    //     const json = await response.json();
     //     return json
     // }
 
-    signup = async function() {
-        let userdata = this.setupUserObj(this.event)
-        this.configObject.method = "POST"
-        this.configObject.body = JSON.stringify(userdata)
-        const response = await fetch(this.url, this.configObject);
-        const json = await response.json();
-        return json
-    }
-
-    login = async function() {
-        let userdata = this.setupUserObj(this.event)
-        this.configObject.method = "POST"
-        this.configObject.body = JSON.stringify(userdata)
-        const response = await fetch(this.url, this.configObject);
-        const json = await response.json();
-        return json
-    }
-
-    authorize = async function() {
-        let token = JSON.parse(localStorage.getItem('auth'))
-        this.configObject.headers.bearer = token
-        const response = await fetch(this.url, this.configObject);
-        const json = await response.json();
-        return json
-    }
-
-    setupUserObj = (event) => {
-        let data = { 
-            user: {
-                username: event.target.children['username'].value,
-                password: event.target.children['password'].value
-            }
-        }
-        return data
-    }
+    // setupUserObj = (event) => {
+    //     let data = { 
+    //         user: {
+    //             username: event.target.children['username'].value,
+    //             password: event.target.children['password'].value
+    //         }
+    //     }
+    //     return data;
+    // }
 
     setupAlbObj = (event) => {
         let data = {
@@ -71,7 +47,7 @@ class Fetch {
         }
         // form an array of input fields
         let songs = Array.from(event.target.children).filter(child => {
-            return child.className === 'track-input'
+            return child.className === 'track-input';
         })
         // loop to format the field values for submission
         let x = 0
@@ -80,27 +56,27 @@ class Fetch {
             if (songObj.title === "" && songObj.runtime === "") {
                 break;
             } else {
-            data.album.songs_attributes.push(songObj)
-            x += 2
+                data.album.songs_attributes.push(songObj);
+                x += 2;
             }
         }
-        return data
+        return data;
     }
 
     post = function() {
-        let albumdata = this.setupAlbObj(this.event)
-        this.configObject.method = "POST"
-        this.configObject.body = JSON.stringify(albumdata)
-        this.configObject.headers.bearer = Session.token
+        let albumdata = this.setupAlbObj(this.event);
+        this.configObject.method = "POST";
+        this.configObject.body = JSON.stringify(albumdata);
+        this.configObject.headers.bearer = Session.token;
         return fetch(this.url, this.configObject)
-        .then(r => r.json())
+        .then(r => r.json());;
     }
     
 
     delete = function() {
-        this.configObject.method = "DELETE"
+        this.configObject.method = "DELETE";
         return fetch(`${this.url}/${this.event.target.dataset.delId}`, this.configObject)
-        .then(r => r.json())
+        .then(r => r.json());
     }
 
 }
