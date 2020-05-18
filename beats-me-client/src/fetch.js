@@ -16,6 +16,12 @@ class Fetch {
         return json
     }
 
+    getSorted = async function() {
+        const response = await fetch(this.url);
+        debugger
+        const json = await response.json();
+        return json
+    }
     // authenticate = async function() {
     //     let userdata = this.setupUserObj(this.event)
     //     this.configObject.method = "POST"

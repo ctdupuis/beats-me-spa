@@ -12,6 +12,7 @@ class App {
         this.inputs = document.querySelectorAll('input.track-input');
         this.radios = document.getElementsByClassName('radio');
         this.genSelect = document.getElementById('genre');
+        this.sort = document.getElementById('sort')
         // this.signup = document.getElementById('signup');
         // this.login = document.getElementById('login');
         // this.seshForm = document.getElementById('sesh');
@@ -117,6 +118,35 @@ class App {
         new Fetch(this.genrePath).get().then(json => json.forEach(gen =>{
             this.genSelect.innerHTML += `<option value='${gen.name}'>${gen.name}</option>`;
         }))
+        this.sort.addEventListener('click', (e) => {
+            let cards = Array.from(document.getElementsByClassName('album-card'))
+            cards.forEach(card => card.remove())
+            const sorted = Album.all.sort(function(a,b) {
+                if (a.name > b.name)
+                {
+                    return 1
+                }
+                else if (a.name < b.name) {
+                    return -1
+                }
+            })
+            // debugger
+            sorted.forEach(el => this.makeCard(this.flexContainer, el))
+            // new Fetch(this.albumsURL, e).getSorted()
+            // .then(alb => {
+            //     debugger
+            //     let album = new Album(alb.id, alb.name, alb.artist.name, alb.genre.name, alb.img_url, alb.songs);
+            //     this.makeCard(this.flexContainer, album); 
+            //     let delBtns = document.querySelectorAll('button.delete');
+            //     delBtns.forEach(btn => {
+            //         btn.addEventListener('click', (e) => {
+            //             new Fetch(this.albumsURL, e).delete();
+            //             alert("Album Deleted");
+            //             e.target.parentElement.remove();
+            //         })
+            //     }) 
+            // })
+        })
     //     this.signup.addEventListener('click', (e) => {
     //         this.seshForm.style.display = '';
     //         this.seshForm.setAttribute('action', '/signup');
